@@ -39,7 +39,7 @@ namespace SCI_9S12
             /*
              * pseudocode block
              * 
-             * initialize UI : show variable comport, baud rate
+             * implement com port control function
              * 
              * 
             */
@@ -49,6 +49,8 @@ namespace SCI_9S12
             #region Events
 
             Load += Main_Load;
+            menu_comcontrol_connect.Click += Menu_comcontrol_connect_Click;
+            menu_comcontrol_disconnect.Click += Menu_comcontrol_disconnect_Click;
 
 
             #endregion
@@ -56,6 +58,65 @@ namespace SCI_9S12
             #endregion
         }
         #region Event handlers
+
+        /// <summary>
+        /// Disconnect the current serial port communication
+        /// </summary>
+        private void Menu_comcontrol_disconnect_Click(object sender, EventArgs e)
+        {
+            //exit, if serialport instance does not exists
+            if (_newSerialPort == null)
+                return;
+
+            if (_newSerialPort.IsOpen)
+            {
+                //close the current port and reset the serial port
+                _newSerialPort.Close();
+                _newSerialPort = null;
+                progressBar_connection.Value = 0;
+            }
+        }
+        
+        /// <summary>
+        /// Create serial port connection 
+        /// </summary>
+        private void Menu_comcontrol_connect_Click(object sender, EventArgs e)
+        {
+
+            //setting validation
+            if (comboBox_comport.SelectedIndex == -1 || comboBox_baudrate.SelectedIndex == -1)
+            {
+                //pop up error message
+                MessageBox.Show("Error: Invalid Serial port info", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //retrieve setting
+            string Port = comboBox_comport.Text;
+            int BaudRate = int.Parse(comboBox_baudrate.Text);
+
+            //build connection and open
+            _newSerialPort = new SerialPort(Port, BaudRate);
+
+            //handle exception
+            try
+            {
+                //open the current port
+                _newSerialPort.Open();
+
+                //indicator light up if succeed
+                progressBar_connection.Value = 100;
+            }
+            catch (Exception ex)
+            {
+                //pop up error message
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Initialize UI when load the form
+        /// </summary>
         private void Main_Load(object sender, EventArgs e)
         {
             //get the avariable serial port
@@ -69,6 +130,7 @@ namespace SCI_9S12
             comboBox_baudrate.SelectedIndex = 7;
 
         }
+
         #endregion
     }
 }
