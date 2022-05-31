@@ -30,27 +30,28 @@ namespace SCI_9S12
         private void InitializeComponent()
         {
             this.gbox_comportcontrol = new System.Windows.Forms.GroupBox();
-            this.lbl_cpc_comport = new System.Windows.Forms.Label();
-            this.lbl_cpc_baudrate = new System.Windows.Forms.Label();
-            this.comboBox_comport = new System.Windows.Forms.ComboBox();
             this.comboBox_baudrate = new System.Windows.Forms.ComboBox();
+            this.comboBox_comport = new System.Windows.Forms.ComboBox();
+            this.lbl_cpc_baudrate = new System.Windows.Forms.Label();
+            this.lbl_cpc_comport = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menu_file = new System.Windows.Forms.ToolStripMenuItem();
-            this.menu_file_close = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menu_file_savetotxt = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_file_savetomysql = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menu_file_close = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_comcontrol = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_comcontrol_connect = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_comcontrol_disconnect = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_about = new System.Windows.Forms.ToolStripMenuItem();
             this.gbox_stauts = new System.Windows.Forms.GroupBox();
-            this.progressBar_connection = new System.Windows.Forms.ProgressBar();
-            this.lbl_status_connection = new System.Windows.Forms.Label();
-            this.lbl_status_savetotxt = new System.Windows.Forms.Label();
-            this.progressBar_savetotxt = new System.Windows.Forms.ProgressBar();
             this.lbl_status_savetomysql = new System.Windows.Forms.Label();
             this.progressBar_savetomysql = new System.Windows.Forms.ProgressBar();
+            this.lbl_status_savetotxt = new System.Windows.Forms.Label();
+            this.progressBar_savetotxt = new System.Windows.Forms.ProgressBar();
+            this.lbl_status_connection = new System.Windows.Forms.Label();
+            this.progressBar_connection = new System.Windows.Forms.ProgressBar();
+            this.progressBar_receiving = new System.Windows.Forms.ProgressBar();
             this.gbox_comportcontrol.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.gbox_stauts.SuspendLayout();
@@ -70,15 +71,23 @@ namespace SCI_9S12
             this.gbox_comportcontrol.TabStop = false;
             this.gbox_comportcontrol.Text = "COM PORT CONTROL";
             // 
-            // lbl_cpc_comport
+            // comboBox_baudrate
             // 
-            this.lbl_cpc_comport.AutoSize = true;
-            this.lbl_cpc_comport.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cpc_comport.Location = new System.Drawing.Point(7, 23);
-            this.lbl_cpc_comport.Name = "lbl_cpc_comport";
-            this.lbl_cpc_comport.Size = new System.Drawing.Size(83, 19);
-            this.lbl_cpc_comport.TabIndex = 0;
-            this.lbl_cpc_comport.Text = "COM PORT:";
+            this.comboBox_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_baudrate.FormattingEnabled = true;
+            this.comboBox_baudrate.Location = new System.Drawing.Point(96, 56);
+            this.comboBox_baudrate.Name = "comboBox_baudrate";
+            this.comboBox_baudrate.Size = new System.Drawing.Size(121, 24);
+            this.comboBox_baudrate.TabIndex = 3;
+            // 
+            // comboBox_comport
+            // 
+            this.comboBox_comport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_comport.FormattingEnabled = true;
+            this.comboBox_comport.Location = new System.Drawing.Point(96, 24);
+            this.comboBox_comport.Name = "comboBox_comport";
+            this.comboBox_comport.Size = new System.Drawing.Size(121, 24);
+            this.comboBox_comport.TabIndex = 2;
             // 
             // lbl_cpc_baudrate
             // 
@@ -90,23 +99,15 @@ namespace SCI_9S12
             this.lbl_cpc_baudrate.TabIndex = 1;
             this.lbl_cpc_baudrate.Text = "BAUD RATE:";
             // 
-            // comboBox_comport
+            // lbl_cpc_comport
             // 
-            this.comboBox_comport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_comport.FormattingEnabled = true;
-            this.comboBox_comport.Location = new System.Drawing.Point(96, 24);
-            this.comboBox_comport.Name = "comboBox_comport";
-            this.comboBox_comport.Size = new System.Drawing.Size(121, 24);
-            this.comboBox_comport.TabIndex = 2;
-            // 
-            // comboBox_baudrate
-            // 
-            this.comboBox_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_baudrate.FormattingEnabled = true;
-            this.comboBox_baudrate.Location = new System.Drawing.Point(96, 56);
-            this.comboBox_baudrate.Name = "comboBox_baudrate";
-            this.comboBox_baudrate.Size = new System.Drawing.Size(121, 24);
-            this.comboBox_baudrate.TabIndex = 3;
+            this.lbl_cpc_comport.AutoSize = true;
+            this.lbl_cpc_comport.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_cpc_comport.Location = new System.Drawing.Point(7, 23);
+            this.lbl_cpc_comport.Name = "lbl_cpc_comport";
+            this.lbl_cpc_comport.Size = new System.Drawing.Size(83, 19);
+            this.lbl_cpc_comport.TabIndex = 0;
+            this.lbl_cpc_comport.Text = "COM PORT:";
             // 
             // menuStrip1
             // 
@@ -132,17 +133,6 @@ namespace SCI_9S12
             this.menu_file.Size = new System.Drawing.Size(40, 21);
             this.menu_file.Text = "File";
             // 
-            // menu_file_close
-            // 
-            this.menu_file_close.Name = "menu_file_close";
-            this.menu_file_close.Size = new System.Drawing.Size(180, 22);
-            this.menu_file_close.Text = "Close";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
             // menu_file_savetotxt
             // 
             this.menu_file_savetotxt.Name = "menu_file_savetotxt";
@@ -154,6 +144,17 @@ namespace SCI_9S12
             this.menu_file_savetomysql.Name = "menu_file_savetomysql";
             this.menu_file_savetomysql.Size = new System.Drawing.Size(180, 22);
             this.menu_file_savetomysql.Text = "Save to MySQL";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // menu_file_close
+            // 
+            this.menu_file_close.Name = "menu_file_close";
+            this.menu_file_close.Size = new System.Drawing.Size(180, 22);
+            this.menu_file_close.Text = "Close";
             // 
             // menu_comcontrol
             // 
@@ -168,13 +169,13 @@ namespace SCI_9S12
             // menu_comcontrol_connect
             // 
             this.menu_comcontrol_connect.Name = "menu_comcontrol_connect";
-            this.menu_comcontrol_connect.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_connect.Size = new System.Drawing.Size(142, 22);
             this.menu_comcontrol_connect.Text = "Connect";
             // 
             // menu_comcontrol_disconnect
             // 
             this.menu_comcontrol_disconnect.Name = "menu_comcontrol_disconnect";
-            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(142, 22);
             this.menu_comcontrol_disconnect.Text = "Disconnect";
             // 
             // menu_about
@@ -199,22 +200,22 @@ namespace SCI_9S12
             this.gbox_stauts.TabStop = false;
             this.gbox_stauts.Text = "Status";
             // 
-            // progressBar_connection
+            // lbl_status_savetomysql
             // 
-            this.progressBar_connection.Location = new System.Drawing.Point(111, 21);
-            this.progressBar_connection.Name = "progressBar_connection";
-            this.progressBar_connection.Size = new System.Drawing.Size(56, 19);
-            this.progressBar_connection.TabIndex = 0;
+            this.lbl_status_savetomysql.AutoSize = true;
+            this.lbl_status_savetomysql.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_status_savetomysql.Location = new System.Drawing.Point(6, 65);
+            this.lbl_status_savetomysql.Name = "lbl_status_savetomysql";
+            this.lbl_status_savetomysql.Size = new System.Drawing.Size(102, 19);
+            this.lbl_status_savetomysql.TabIndex = 5;
+            this.lbl_status_savetomysql.Text = "SaveToMySQL:";
             // 
-            // lbl_status_connection
+            // progressBar_savetomysql
             // 
-            this.lbl_status_connection.AutoSize = true;
-            this.lbl_status_connection.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_status_connection.Location = new System.Drawing.Point(6, 21);
-            this.lbl_status_connection.Name = "lbl_status_connection";
-            this.lbl_status_connection.Size = new System.Drawing.Size(83, 19);
-            this.lbl_status_connection.TabIndex = 1;
-            this.lbl_status_connection.Text = "Connection:";
+            this.progressBar_savetomysql.Location = new System.Drawing.Point(111, 65);
+            this.progressBar_savetomysql.Name = "progressBar_savetomysql";
+            this.progressBar_savetomysql.Size = new System.Drawing.Size(56, 19);
+            this.progressBar_savetomysql.TabIndex = 4;
             // 
             // lbl_status_savetotxt
             // 
@@ -233,29 +234,37 @@ namespace SCI_9S12
             this.progressBar_savetotxt.Size = new System.Drawing.Size(56, 19);
             this.progressBar_savetotxt.TabIndex = 2;
             // 
-            // lbl_status_savetomysql
+            // lbl_status_connection
             // 
-            this.lbl_status_savetomysql.AutoSize = true;
-            this.lbl_status_savetomysql.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_status_savetomysql.Location = new System.Drawing.Point(6, 65);
-            this.lbl_status_savetomysql.Name = "lbl_status_savetomysql";
-            this.lbl_status_savetomysql.Size = new System.Drawing.Size(102, 19);
-            this.lbl_status_savetomysql.TabIndex = 5;
-            this.lbl_status_savetomysql.Text = "SaveToMySQL:";
+            this.lbl_status_connection.AutoSize = true;
+            this.lbl_status_connection.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_status_connection.Location = new System.Drawing.Point(6, 21);
+            this.lbl_status_connection.Name = "lbl_status_connection";
+            this.lbl_status_connection.Size = new System.Drawing.Size(83, 19);
+            this.lbl_status_connection.TabIndex = 1;
+            this.lbl_status_connection.Text = "Connection:";
             // 
-            // progressBar_savetomysql
+            // progressBar_connection
             // 
-            this.progressBar_savetomysql.Location = new System.Drawing.Point(111, 65);
-            this.progressBar_savetomysql.Name = "progressBar_savetomysql";
-            this.progressBar_savetomysql.Size = new System.Drawing.Size(56, 19);
-            this.progressBar_savetomysql.TabIndex = 4;
+            this.progressBar_connection.Location = new System.Drawing.Point(111, 21);
+            this.progressBar_connection.Name = "progressBar_connection";
+            this.progressBar_connection.Size = new System.Drawing.Size(56, 19);
+            this.progressBar_connection.TabIndex = 0;
+            // 
+            // progressBar_receiving
+            // 
+            this.progressBar_receiving.Location = new System.Drawing.Point(13, 151);
+            this.progressBar_receiving.Name = "progressBar_receiving";
+            this.progressBar_receiving.Size = new System.Drawing.Size(419, 15);
+            this.progressBar_receiving.TabIndex = 3;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.ClientSize = new System.Drawing.Size(446, 155);
+            this.ClientSize = new System.Drawing.Size(446, 170);
+            this.Controls.Add(this.progressBar_receiving);
             this.Controls.Add(this.gbox_stauts);
             this.Controls.Add(this.gbox_comportcontrol);
             this.Controls.Add(this.menuStrip1);
@@ -298,6 +307,7 @@ namespace SCI_9S12
         private System.Windows.Forms.ProgressBar progressBar_savetotxt;
         private System.Windows.Forms.Label lbl_status_connection;
         private System.Windows.Forms.ProgressBar progressBar_connection;
+        private System.Windows.Forms.ProgressBar progressBar_receiving;
     }
 }
 
