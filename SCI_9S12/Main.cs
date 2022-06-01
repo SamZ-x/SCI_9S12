@@ -15,9 +15,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Diagnostics.Trace;
 
-//add references
+//add additional references
 using System.IO;
 using System.IO.Ports;
+using MySql.Data.MySqlClient;
 
 
 namespace SCI_9S12
@@ -28,7 +29,7 @@ namespace SCI_9S12
 
         //port and data
         SerialPort _newSerialPort = null;
-        String _dataIn = "";
+        string _dataIn = "";
         int _dataCounter = 0;
 
         //file IO
@@ -36,6 +37,8 @@ namespace SCI_9S12
         string FullFilePath;
 
         //MySQL
+        MySqlConnection _mysql_conn = null;
+        string connstr = "";
 
         #endregion
 
@@ -44,28 +47,73 @@ namespace SCI_9S12
         {
             InitializeComponent();
 
-            /*
-             * pseudocode block
-             * 
-             * implement com port control function
-             * 
-             * 
-            */
-
-
+            //set app display in center screen
+            StartPosition = FormStartPosition.CenterScreen;
 
             #region Events
-
+            //main form events
             Load += Main_Load;
+
+            //com port control events
             menu_comcontrol_connect.Click += Menu_comcontrol_connect_Click;
             menu_comcontrol_disconnect.Click += Menu_comcontrol_disconnect_Click;
-            menu_file_savetotxt.Click += Menu_file_savetotxt_Click;
-           
 
+            //file events
+            menu_file_savetotxt.Click += Menu_file_savetotxt_Click;
+            menu_file_savetomysql.Click += Menu_file_savetomysql_Click;
+            menu_file_close.Click += (sender, e) => { Application.Exit(); };       //close APP
             #endregion
 
         }
+
         #region Event handlers
+
+
+        /// <summary>
+        /// Selection to save data to online MySQL database
+        /// </summary>
+        private void Menu_file_savetomysql_Click(object sender, EventArgs e)
+        {
+            //cancel upload to mysql database
+            if (menu_file_savetomysql.Checked)
+            {
+                menu_file_savetomysql.Checked = false;
+                progressBar_savetomysql.Value = 0;
+                return;
+            }
+
+            //open MySQL connection form to input the information
+            MySQL_Login _mysqlLoginPage = new MySQL_Login(Location);   //pass the main form location to relocate the dialog form
+            _mysqlLoginPage.ShowDialog();
+
+            //get the database connection parameters and create the connectionstring
+            DatabaseInfo _dbInfo = _mysqlLoginPage._mysqlInfo;
+
+            //check the request(Cancel/Connect)
+            if (_dbInfo.Request == "Cancel")
+                return;
+
+            //if request is not "Cancel". Construct the connection string
+            connstr = $"SERVER={_dbInfo.ServerName};PORT={_dbInfo.Port};DATABASE={_dbInfo.DatabaseName};UID={_dbInfo.UserName};PASSWORD={_dbInfo.Password}";
+
+            //connection test
+            try
+            {
+                using (_mysql_conn = new MySqlConnection(connstr))
+                    _mysql_conn.Open();
+
+                //if connection is good, update the UI
+                menu_file_savetomysql.Checked = true;
+                progressBar_savetomysql.Value = 100;
+
+            }
+            catch
+            {
+                //display error messge
+                MessageBox.Show("Error: Unable to connect to MySQL, invalid info!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         /// <summary>
         /// Operation after receiving data
@@ -80,12 +128,22 @@ namespace SCI_9S12
             //retrieve data from current port
             _dataIn = _newSerialPort.ReadExisting();
 
+            /*
+             *  data manipulation part  
+             *  slice the data into meaningful data
+             *  store into a new data type (class/struct)
+             *  
+             */
+
+
             //save data
             SaveReceivedData();
 
         }
 
-
+        /// <summary>
+        /// Selection to save data into local txt file
+        /// </summary>
         private void Menu_file_savetotxt_Click(object sender, EventArgs e)
         {
             //cancel save to txt
@@ -180,6 +238,7 @@ namespace SCI_9S12
                 //limit the setting
                 comboBox_comport.Enabled = false;
                 comboBox_baudrate.Enabled = false;
+                menu_comcontrol_connect.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -205,14 +264,13 @@ namespace SCI_9S12
             string[] BaudRateList = { "75", "110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400" };
             comboBox_baudrate.Items.AddRange(BaudRateList);
             comboBox_baudrate.SelectedIndex = 7;
-
         }
 
         #endregion
 
         #region Helper methods
         /// <summary>
-        /// control center of saving received data
+        /// Control of saving received data
         /// </summary>
         private void SaveReceivedData()
         {
@@ -223,9 +281,17 @@ namespace SCI_9S12
 
             //option 2: Online MySQL database
             if (menu_file_savetomysql.Checked)
-                WriteLine("mysql");
-            
+                SaveDataToMySQL();
+
             //add more as need
+        }
+
+        /// <summary>
+        /// Save data to MySQL
+        /// </summary>
+        private void SaveDataToMySQL()
+        {
+
         }
 
         /// <summary>
