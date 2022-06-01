@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Diagnostics.Trace;
 
 //add additional references
 using System.IO;
+using MySql.Data.MySqlClient;
 
 namespace SCI_9S12
 {
@@ -22,6 +24,8 @@ namespace SCI_9S12
         public string Password;
         public string Port;
         public string DatabaseName;
+        public string ConnectiongString;
+        public string InsetQuery;
     }
 
     public partial class MySQL_Login : Form
@@ -31,6 +35,13 @@ namespace SCI_9S12
         //use to store the database connection information
         public DatabaseInfo _mysqlInfo = new DatabaseInfo();
         Point MainFormLocation;
+
+        //MySQL
+        MySqlConnection _mysql_conn = null;
+        string connstr = "";
+        //store the database detail information
+
+
         #endregion
 
 
@@ -43,8 +54,9 @@ namespace SCI_9S12
 
             #region Events
 
-            //reset location
-            Shown += (sender, e) => Location = mainformlocaiton;
+            //Form events
+            Shown += (sender, e) => Location = mainformlocaiton;   //reset location
+            Load += MySQL_Login_Load;
 
             //menu
             menu_exit.Click += Menu_exit_Click;
@@ -53,19 +65,92 @@ namespace SCI_9S12
             //button events
             btn_submit.Click += Btn_submit_Click;
             btn_clear.Click += Btn_clear_Click;
+            btn_generatequery.Click += Btn_generatequery_Click;
 
             //file events
             menu_file_export.Click += Menu_file_export_Click;
             menu_file_import.Click += Menu_file_import_Click;
 
+            //select control events
+            comboBox_tables.SelectedIndexChanged += ComboBox_tables_SelectedIndexChanged;
             #endregion
+        }
+
+        #region Event handlers
+
+        /// <summary>
+        /// Generate Insert Query base on the user selection
+        /// </summary>
+        private void Btn_generatequery_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        /// <summary>
+        /// Initial the UI
+        /// </summary>
+        private void MySQL_Login_Load(object sender, EventArgs e)
+        {
+            //initialize UI
+            comboBox_tables.SelectedIndex = 0;
+            btn_generatequery.Enabled = false;
+            btn_finish.Enabled = false;
+        }
+
+        /// <summary>
+        /// Show the database fields in check box list
+        /// </summary>
+        private void ComboBox_tables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //not valid database name
+            if (comboBox_tables.SelectedIndex == 0)
+            {
+                //clear the check box list
+                checkedListBox_selectfields.Items.Clear();
+                return;
+            }
+
+            //otherwise, connect database to retrieve all the fields
+            string TargetTableName = comboBox_tables.Text;
+
+            //connection
+            try
+            {
+                using (_mysql_conn = new MySqlConnection(connstr))
+                {
+                    //open connection for operation
+                    _mysql_conn.Open();
+
+                    //retrieve avariable tables and display
+                    string GetTablesNamesQuery = $"SHOW COLUMNS FROM {TargetTableName}";
+                    using (MySqlCommand _mysql_comm = new MySqlCommand(GetTablesNamesQuery, _mysql_conn))
+                    {
+                        MySqlDataReader _mySqlDataReader = _mysql_comm.ExecuteReader();
+                        List<string> FieldList = new List<string>();
+
+                        while (_mySqlDataReader.Read())
+                        {
+                            FieldList.Add(_mySqlDataReader["Field"].ToString());
+                        }
+
+                        //Show avariable tables in dropdown list
+                        Invoke(new Action(() => ShowDatabaseDetialToControl(FieldList, checkedListBox_selectfields)));
+
+
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                //display error messge
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
         /// display the help doc window
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Menu_help_Click(object sender, EventArgs e)
         {
             //show the help doc
@@ -73,8 +158,6 @@ namespace SCI_9S12
             HelpPage.ShowDialog();
                
         }
-
-        #region Event handlers
 
         /// <summary>
         /// Exit without submission
@@ -84,9 +167,7 @@ namespace SCI_9S12
             //update the property to notify "Cancel" connect to MySQL
             _mysqlInfo.Request = "Cancel";
             this.Close();
-
         }
-
 
         /// <summary>
         /// Open file dialog to import a configure file
@@ -154,7 +235,7 @@ namespace SCI_9S12
         }
 
         /// <summary>
-        /// Collect the user input
+        /// Collect the user input, test database connection
         /// </summary>
         private void Btn_submit_Click(object sender, EventArgs e)
         {
@@ -166,6 +247,13 @@ namespace SCI_9S12
                 return;
             }
 
+            //reset database table and fields and query
+            comboBox_tables.Items.Clear();
+            comboBox_tables.Items.Add("Select target table");
+            comboBox_tables.SelectedIndex = 0;
+            checkedListBox_selectfields.Items.Clear();
+            
+
             //otherwise, get the parameters and save into the database information property
             _mysqlInfo.Request = "Connect";
             _mysqlInfo.ServerName = txt_servername.Text;
@@ -174,8 +262,48 @@ namespace SCI_9S12
             _mysqlInfo.Port = txt_port.Text;
             _mysqlInfo.DatabaseName = txt_databasename.Text;
 
-            //close the dialog
-            this.Close();
+            //if request is not "Cancel". Construct the connection string
+            connstr = $"SERVER={_mysqlInfo.ServerName};PORT={_mysqlInfo.Port};DATABASE={_mysqlInfo.DatabaseName};UID={_mysqlInfo.UserName};PASSWORD={_mysqlInfo.Password}";
+
+            //connection test
+            try
+            {
+                using (_mysql_conn = new MySqlConnection(connstr))
+                {
+                    //open connection for operation
+                    _mysql_conn.Open();
+                    
+                    _mysqlInfo.ConnectiongString = connstr;  //save the connectiong string after connecting successfully
+                    //update UI                        
+                    btn_generatequery.Enabled = true;
+                    btn_finish.Enabled = true;
+
+                    //retrieve avariable tables and display
+                    string GetTablesNamesQuery = $"SHOW TABLES";
+                    using (MySqlCommand _mysql_comm = new MySqlCommand(GetTablesNamesQuery, _mysql_conn))
+                    {
+                        MySqlDataReader _mySqlDataReader = _mysql_comm.ExecuteReader();
+                        List<string> TableList = new List<string>();
+                        while (_mySqlDataReader.Read())
+                        {
+                            TableList.Add(_mySqlDataReader[$"Tables_in_{_mysqlInfo.DatabaseName}"].ToString());
+                        }
+
+                        //Show avariable tables in dropdown list
+                        Invoke(new Action(() => ShowDatabaseDetialToControl(TableList, comboBox_tables))) ;
+                    }
+                }
+            }
+            catch (TimeoutException)
+            {
+                //display error messge
+                MessageBox.Show("Error: Unable to connect to MySQL. Connect operation timeout!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch
+            {
+                //display error messge
+                MessageBox.Show("Error: Unable to connect to MySQL, invalid info!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
@@ -191,12 +319,22 @@ namespace SCI_9S12
             }
         }
 
-        /// <summary>
-        /// Closing the window to cancel to link MySQL database
-        /// </summary>
-        private void MySQL_Login_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        #endregion
 
+        #region Helper methods
+
+        /// <summary>
+        /// Show database detial information (names, fields, etc) to the control
+        /// </summary>
+        /// <param name="itemlist">Information list</param>
+        /// <param name="control">target Control (Limite to :  combo box, checklist box)</param>
+        private void ShowDatabaseDetialToControl(List<string> itemlist, Control control)
+        {
+            if (control is ComboBox combobox)
+                combobox.Items.AddRange(itemlist.ToArray());
+            
+            if(control is CheckedListBox checkedListbox)
+                checkedListbox.Items.AddRange(itemlist.ToArray());
         }
 
         #endregion

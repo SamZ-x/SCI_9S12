@@ -52,6 +52,9 @@ namespace SCI_9S12
             this.lbl_status_connection = new System.Windows.Forms.Label();
             this.progressBar_connection = new System.Windows.Forms.ProgressBar();
             this.progressBar_receiving = new System.Windows.Forms.ProgressBar();
+            this.lbl_receiving = new System.Windows.Forms.Label();
+            this.lbl_uploading = new System.Windows.Forms.Label();
+            this.progressBar_uploading = new System.Windows.Forms.ProgressBar();
             this.gbox_comportcontrol.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.gbox_stauts.SuspendLayout();
@@ -253,17 +256,47 @@ namespace SCI_9S12
             // 
             // progressBar_receiving
             // 
-            this.progressBar_receiving.Location = new System.Drawing.Point(13, 151);
+            this.progressBar_receiving.Location = new System.Drawing.Point(84, 155);
             this.progressBar_receiving.Name = "progressBar_receiving";
-            this.progressBar_receiving.Size = new System.Drawing.Size(419, 15);
+            this.progressBar_receiving.Size = new System.Drawing.Size(348, 15);
             this.progressBar_receiving.TabIndex = 3;
+            // 
+            // lbl_receiving
+            // 
+            this.lbl_receiving.AutoSize = true;
+            this.lbl_receiving.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_receiving.Location = new System.Drawing.Point(8, 151);
+            this.lbl_receiving.Name = "lbl_receiving";
+            this.lbl_receiving.Size = new System.Drawing.Size(70, 19);
+            this.lbl_receiving.TabIndex = 6;
+            this.lbl_receiving.Text = "Receiving:";
+            // 
+            // lbl_uploading
+            // 
+            this.lbl_uploading.AutoSize = true;
+            this.lbl_uploading.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_uploading.Location = new System.Drawing.Point(7, 171);
+            this.lbl_uploading.Name = "lbl_uploading";
+            this.lbl_uploading.Size = new System.Drawing.Size(75, 19);
+            this.lbl_uploading.TabIndex = 7;
+            this.lbl_uploading.Text = "Uploading:";
+            // 
+            // progressBar_uploading
+            // 
+            this.progressBar_uploading.Location = new System.Drawing.Point(84, 177);
+            this.progressBar_uploading.Name = "progressBar_uploading";
+            this.progressBar_uploading.Size = new System.Drawing.Size(19, 13);
+            this.progressBar_uploading.TabIndex = 8;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.ClientSize = new System.Drawing.Size(446, 170);
+            this.ClientSize = new System.Drawing.Size(446, 199);
+            this.Controls.Add(this.progressBar_uploading);
+            this.Controls.Add(this.lbl_uploading);
+            this.Controls.Add(this.lbl_receiving);
             this.Controls.Add(this.progressBar_receiving);
             this.Controls.Add(this.gbox_stauts);
             this.Controls.Add(this.gbox_comportcontrol);
@@ -308,6 +341,9 @@ namespace SCI_9S12
         private System.Windows.Forms.Label lbl_status_connection;
         private System.Windows.Forms.ProgressBar progressBar_connection;
         private System.Windows.Forms.ProgressBar progressBar_receiving;
+        private System.Windows.Forms.Label lbl_receiving;
+        private System.Windows.Forms.Label lbl_uploading;
+        private System.Windows.Forms.ProgressBar progressBar_uploading;
     }
 }
 

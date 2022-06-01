@@ -2,7 +2,8 @@
  * Author: Xiaobin Zhu
  * Project: serial port data receiver for 9S12
  * history:
- *      May 31, 2022 creat project. 
+ *      May 31, 2022 creat project. (UI, serial port connection, MySQL connection, export to txt file.)
+ *      Jun 01, 2022 finished upload to MySQL
  */
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace SCI_9S12
         //MySQL
         MySqlConnection _mysql_conn = null;
         string connstr = "";
-
+        DatabaseInfo _dbInfo;
         #endregion
 
 
@@ -62,58 +63,28 @@ namespace SCI_9S12
             menu_file_savetotxt.Click += Menu_file_savetotxt_Click;
             menu_file_savetomysql.Click += Menu_file_savetomysql_Click;
             menu_file_close.Click += (sender, e) => { Application.Exit(); };       //close APP
+            menu_about.Click += (sender, e) => { new Help_Page().ShowDialog(); };  //show the help doc
             #endregion
 
         }
 
         #region Event handlers
 
-
         /// <summary>
-        /// Selection to save data to online MySQL database
+        /// Initialize UI when load the form
         /// </summary>
-        private void Menu_file_savetomysql_Click(object sender, EventArgs e)
+        private void Main_Load(object sender, EventArgs e)
         {
-            //cancel upload to mysql database
-            if (menu_file_savetomysql.Checked)
-            {
-                menu_file_savetomysql.Checked = false;
-                progressBar_savetomysql.Value = 0;
-                return;
-            }
+            //get the avariable serial port
+            string[] PortList = SerialPort.GetPortNames();
+            comboBox_comport.Items.AddRange(PortList);
+            comboBox_comport.SelectedIndex = 0;
 
-            //open MySQL connection form to input the information
-            MySQL_Login _mysqlLoginPage = new MySQL_Login(Location);   //pass the main form location to relocate the dialog form
-            _mysqlLoginPage.ShowDialog();
-
-            //get the database connection parameters and create the connectionstring
-            DatabaseInfo _dbInfo = _mysqlLoginPage._mysqlInfo;
-
-            //check the request(Cancel/Connect)
-            if (_dbInfo.Request == "Cancel")
-                return;
-
-            //if request is not "Cancel". Construct the connection string
-            connstr = $"SERVER={_dbInfo.ServerName};PORT={_dbInfo.Port};DATABASE={_dbInfo.DatabaseName};UID={_dbInfo.UserName};PASSWORD={_dbInfo.Password}";
-
-            //connection test
-            try
-            {
-                using (_mysql_conn = new MySqlConnection(connstr))
-                    _mysql_conn.Open();
-
-                //if connection is good, update the UI
-                menu_file_savetomysql.Checked = true;
-                progressBar_savetomysql.Value = 100;
-
-            }
-            catch
-            {
-                //display error messge
-                MessageBox.Show("Error: Unable to connect to MySQL, invalid info!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //initialize baud rate, set default 9600
+            string[] BaudRateList = { "75", "110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400" };
+            comboBox_baudrate.Items.AddRange(BaudRateList);
+            comboBox_baudrate.SelectedIndex = 7;
         }
-
 
         /// <summary>
         /// Operation after receiving data
@@ -136,7 +107,7 @@ namespace SCI_9S12
              */
 
 
-            //save data
+            //save data control(base on user selection)
             SaveReceivedData();
 
         }
@@ -171,37 +142,73 @@ namespace SCI_9S12
 
         }
 
-
         /// <summary>
-        /// Disconnect the current serial port communication
+        /// Selection to save data to online MySQL database(collect database config information, and connection test)
         /// </summary>
-        private void Menu_comcontrol_disconnect_Click(object sender, EventArgs e)
+        private void Menu_file_savetomysql_Click(object sender, EventArgs e)
         {
-            //exit, if serialport instance does not exists
-            if (_newSerialPort == null)
+            //cancel upload to mysql database
+            if (menu_file_savetomysql.Checked)
+            {
+                menu_file_savetomysql.Checked = false;
+                progressBar_savetomysql.Value = 0;
+                return;
+            }
+
+            //open MySQL connection form to input the information
+            MySQL_Login _mysqlLoginPage = new MySQL_Login(Location);   //pass the main form location to relocate the dialog form
+            _mysqlLoginPage.ShowDialog();
+
+            //get the database connection parameters and create the connectionstring
+            _dbInfo = _mysqlLoginPage._mysqlInfo;
+
+            //check the request(Cancel/Connect)
+            if (_dbInfo.Request == "Cancel")
                 return;
 
-            if (_newSerialPort.IsOpen)
+            //if request is not "Cancel". Construct the connection string
+            connstr = $"SERVER={_dbInfo.ServerName};PORT={_dbInfo.Port};DATABASE={_dbInfo.DatabaseName};UID={_dbInfo.UserName};PASSWORD={_dbInfo.Password}";
+
+            //connection test
+            try
             {
-                //close the current port 
-                _newSerialPort.Close();
+                using (_mysql_conn = new MySqlConnection(connstr))
+                {
+                    _mysql_conn.Open();
 
-                //clear the serial port 
-                _newSerialPort = null;
+                    //if connection is good, update the UI
+                    menu_file_savetomysql.Checked = true;
+                    progressBar_savetomysql.Value = 100;
 
-                //release the port parameter selection
-                comboBox_comport.Enabled = true;
-                comboBox_baudrate.Enabled = true;
+                    //pop up page to select target table, fields
 
-                //reset the save method to default
-                menu_file_savetotxt.Checked = false;
-                menu_file_savetomysql.Checked = false;
+                    List<string> TableList = new List<string>();
+                    List<string> FieldList = new List<string>();
 
-                //reset the indicators
-                progressBar_connection.Value = 0;
-                progressBar_receiving.Value = 0;
-                progressBar_savetotxt.Value = 0;
-                progressBar_savetomysql.Value = 0;
+                    string GetTablesNamesQuery = $"SHOW TABLES";
+                    using (MySqlCommand _mysql_comm = new MySqlCommand(GetTablesNamesQuery, _mysql_conn))
+                    {
+                        MySqlDataReader _mySqlDataReader = _mysql_comm.ExecuteReader();
+
+                        while (_mySqlDataReader.Read())
+                        {
+                            WriteLine(_mySqlDataReader[$"Tables_in_{_dbInfo.DatabaseName}"]);
+                            TableList.Add(_mySqlDataReader[$"Tables_in_{_dbInfo.DatabaseName}"].ToString());
+                        }
+                       
+                    }
+
+                }
+            }
+            catch (TimeoutException)
+            {
+                //display error messge
+                MessageBox.Show("Error: Unable to connect to MySQL. Connect operation timeout!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch
+            {
+                //display error messge
+                MessageBox.Show("Error: Unable to connect to MySQL, invalid info!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -251,24 +258,43 @@ namespace SCI_9S12
         }
 
         /// <summary>
-        /// Initialize UI when load the form
+        /// Disconnect the current serial port communication
         /// </summary>
-        private void Main_Load(object sender, EventArgs e)
+        private void Menu_comcontrol_disconnect_Click(object sender, EventArgs e)
         {
-            //get the avariable serial port
-            string[] PortList = SerialPort.GetPortNames();
-            comboBox_comport.Items.AddRange(PortList);
-            comboBox_comport.SelectedIndex = 0;
+            //exit, if serialport instance does not exists
+            if (_newSerialPort == null)
+                return;
 
-            //initialize baud rate, set default 9600
-            string[] BaudRateList = { "75", "110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400" };
-            comboBox_baudrate.Items.AddRange(BaudRateList);
-            comboBox_baudrate.SelectedIndex = 7;
+            if (_newSerialPort.IsOpen)
+            {
+                //close the current port 
+                _newSerialPort.Close();
+
+                //clear the serial port 
+                _newSerialPort = null;
+
+                //release the port parameter selection
+                comboBox_comport.Enabled = true;
+                comboBox_baudrate.Enabled = true;
+
+                //reset the save method to default
+                menu_file_savetotxt.Checked = false;
+                menu_file_savetomysql.Checked = false;
+
+                //reset the indicators
+                progressBar_connection.Value = 0;
+                progressBar_receiving.Value = 0;
+                progressBar_savetotxt.Value = 0;
+                progressBar_savetomysql.Value = 0;
+                progressBar_uploading.Value = 0;
+            }
         }
 
         #endregion
 
         #region Helper methods
+
         /// <summary>
         /// Control of saving received data
         /// </summary>
@@ -291,6 +317,32 @@ namespace SCI_9S12
         /// </summary>
         private void SaveDataToMySQL()
         {
+            //indicator
+            Invoke(new Action( ()=> { progressBar_uploading.Value = 0; })); 
+
+            //the MySQL Configure info has been verified and tested in info-collection part.
+            //Connection should be good.
+            try
+            {
+                //create connection to mysql
+                using (_mysql_conn = new MySqlConnection(connstr))
+                {
+                    //open connection
+                    _mysql_conn.Open();
+
+                    //database opertation part               ---NEED to update the insert(only works on specific database, table)
+                    string InsertQuery = $"INSERT INTO `dataIn`(`date`, `dataDetail`) VALUES('{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{_dataIn}')"; 
+                    //create command on the current mysql connection
+                    MySqlCommand _mysql_comm = new MySqlCommand(InsertQuery, _mysql_conn);
+                    if(_mysql_comm.ExecuteNonQuery() != 0)    //insert data
+                        Invoke(new Action(() => { progressBar_uploading.Value = 100; }));
+                }//close connection
+            }
+            catch (Exception error)
+            {
+                //if any error occured,display error message.
+                MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
@@ -314,7 +366,6 @@ namespace SCI_9S12
             }
 
         }
-
 
         #endregion
     }
