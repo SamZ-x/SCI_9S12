@@ -12,6 +12,7 @@ using static System.Diagnostics.Trace;
 //add additional references
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Runtime.InteropServices;
 
 namespace SCI_9S12
 {
@@ -25,7 +26,9 @@ namespace SCI_9S12
         public string Port;
         public string DatabaseName;
         public string ConnectiongString;
-        public string InsetQuery;
+        public string TableName;
+        public string FieldsOfDatabase;
+        public int FieldCount;
     }
 
     public partial class MySQL_Login : Form
@@ -44,13 +47,16 @@ namespace SCI_9S12
 
         #endregion
 
-
+        /// <summary>
+        /// Constructor with location parameter
+        /// </summary>
+        /// <param name="mainformlocaiton">main form location</param>
         public MySQL_Login(Point mainformlocaiton)
         {
             InitializeComponent();
 
             //get main form location
-            MainFormLocation =  mainformlocaiton;
+            MainFormLocation = mainformlocaiton;
 
             #region Events
 
@@ -60,32 +66,90 @@ namespace SCI_9S12
 
             //menu
             menu_exit.Click += Menu_exit_Click;
-            menu_help.Click += Menu_help_Click;          
+            menu_help.Click += Menu_help_Click;
 
             //button events
             btn_submit.Click += Btn_submit_Click;
             btn_clear.Click += Btn_clear_Click;
             btn_generatequery.Click += Btn_generatequery_Click;
+            btn_finish.Click += Btn_finish_Click;
 
             //file events
             menu_file_export.Click += Menu_file_export_Click;
             menu_file_import.Click += Menu_file_import_Click;
+            menuStrip_menu.MouseDown += MenuStrip_menu_MouseDown;
 
             //select control events
             comboBox_tables.SelectedIndexChanged += ComboBox_tables_SelectedIndexChanged;
+
             #endregion
         }
 
         #region Event handlers
 
         /// <summary>
+        /// Submit the Insert query.(Pass to main UI)
+        /// </summary>
+        private void Btn_finish_Click(object sender, EventArgs e)
+        {
+            //error checking
+            if (txt_insertquery.Text == "")
+            {
+                MessageBox.Show("Query can not be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if(!checkBox_confirmtosubmitquery.Checked)
+            {
+                MessageBox.Show("Confirm to submit", "Warining", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //close the window
+            Close();
+        }
+
+        /// <summary>
         /// Generate Insert Query base on the user selection
         /// </summary>
         private void Btn_generatequery_Click(object sender, EventArgs e)
         {
+            //show error message if no selection
+            if (comboBox_tables.SelectedIndex == 0 || checkedListBox_selectfields.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("Invalid selection of Table/Fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            //create the selected fields part
+            string Query_Fields = "";
+            _mysqlInfo.FieldCount = checkedListBox_selectfields.CheckedItems.Count;
+            for (int i = 0; i < _mysqlInfo.FieldCount; ++i)
+            {
+                if (i != _mysqlInfo.FieldCount - 1)
+                    Query_Fields += $"`{checkedListBox_selectfields.CheckedItems[i]}`,";
+                else
+                    Query_Fields += $"`{checkedListBox_selectfields.CheckedItems[i]}`";
+            }
+
+            //create the paramters part
+            string Query_Fields_parameter = "";
+            for (int i = 0; i < checkedListBox_selectfields.CheckedItems.Count; ++i)
+            {
+                if (i != checkedListBox_selectfields.CheckedItems.Count - 1)
+                    Query_Fields_parameter += $"@{checkedListBox_selectfields.CheckedItems[i]},";
+                else
+                    Query_Fields_parameter += $"@{checkedListBox_selectfields.CheckedItems[i]}";
+            }
+
+            //otherwise, create the query and display on textbox
+            string NewInsertQuery = $"INSERT INTO `{comboBox_tables.Text}` ({Query_Fields}) VALUES ({Query_Fields_parameter})";
+            txt_insertquery.Text = NewInsertQuery;              //show in text box
+
+            //Only take the part of the query, use in main insert function.
+            _mysqlInfo.TableName = comboBox_tables.Text;
+            _mysqlInfo.FieldsOfDatabase =Query_Fields;  
         }
-
 
         /// <summary>
         /// Initial the UI
@@ -141,7 +205,7 @@ namespace SCI_9S12
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //display error messge
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -156,7 +220,7 @@ namespace SCI_9S12
             //show the help doc
             Help_Page HelpPage = new Help_Page();
             HelpPage.ShowDialog();
-               
+
         }
 
         /// <summary>
@@ -252,7 +316,7 @@ namespace SCI_9S12
             comboBox_tables.Items.Add("Select target table");
             comboBox_tables.SelectedIndex = 0;
             checkedListBox_selectfields.Items.Clear();
-            
+            txt_insertquery.Clear();
 
             //otherwise, get the parameters and save into the database information property
             _mysqlInfo.Request = "Connect";
@@ -272,7 +336,7 @@ namespace SCI_9S12
                 {
                     //open connection for operation
                     _mysql_conn.Open();
-                    
+
                     _mysqlInfo.ConnectiongString = connstr;  //save the connectiong string after connecting successfully
                     //update UI                        
                     btn_generatequery.Enabled = true;
@@ -290,7 +354,7 @@ namespace SCI_9S12
                         }
 
                         //Show avariable tables in dropdown list
-                        Invoke(new Action(() => ShowDatabaseDetialToControl(TableList, comboBox_tables))) ;
+                        Invoke(new Action(() => ShowDatabaseDetialToControl(TableList, comboBox_tables)));
                     }
                 }
             }
@@ -312,7 +376,7 @@ namespace SCI_9S12
         private void Btn_clear_Click(object sender, EventArgs e)
         {
             //clear all textbox control
-            foreach (var control in Controls)
+            foreach (var control in groupBox_insertarea.Controls)
             {
                 if (control is TextBox txt)
                     txt.Clear();
@@ -332,9 +396,31 @@ namespace SCI_9S12
         {
             if (control is ComboBox combobox)
                 combobox.Items.AddRange(itemlist.ToArray());
-            
-            if(control is CheckedListBox checkedListbox)
+
+            if (control is CheckedListBox checkedListbox)
                 checkedListbox.Items.AddRange(itemlist.ToArray());
+        }
+
+        #endregion
+
+        #region UI control
+        /// <summary>
+        /// implement function to dray the window
+        /// </summary>
+        [DllImport("User32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("User32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        /// <summary>
+        /// when the mouse over the panel and press, dray the window
+        /// </summary>
+        private void MenuStrip_menu_MouseDown(object sender, MouseEventArgs e)
+        {
+            //call the methods
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
         #endregion

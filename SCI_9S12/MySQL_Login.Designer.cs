@@ -29,7 +29,7 @@ namespace SCI_9S12
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip_menu = new System.Windows.Forms.MenuStrip();
             this.menu_file = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_file_import = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_file_export = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,31 +59,33 @@ namespace SCI_9S12
             this.lbl_selectfields = new System.Windows.Forms.Label();
             this.lbl_tables = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_insertquery = new System.Windows.Forms.TextBox();
             this.btn_finish = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
+            this.checkBox_confirmtosubmitquery = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.menuStrip_menu.SuspendLayout();
             this.groupBox_notearea.SuspendLayout();
             this.groupBox_insertarea.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuStrip_menu
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip_menu.BackColor = System.Drawing.SystemColors.Highlight;
+            this.menuStrip_menu.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_file,
             this.menu_help,
             this.menu_exit});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(827, 25);
-            this.menuStrip1.TabIndex = 12;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip_menu.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip_menu.Name = "menuStrip_menu";
+            this.menuStrip_menu.Size = new System.Drawing.Size(827, 25);
+            this.menuStrip_menu.TabIndex = 12;
+            this.menuStrip_menu.Text = "menuStrip1";
             // 
             // menu_file
             // 
@@ -110,14 +112,14 @@ namespace SCI_9S12
             // menu_help
             // 
             this.menu_help.Name = "menu_help";
-            this.menu_help.Size = new System.Drawing.Size(44, 21);
+            this.menu_help.Size = new System.Drawing.Size(48, 21);
             this.menu_help.Text = "Help";
             // 
             // menu_exit
             // 
             this.menu_exit.Name = "menu_exit";
             this.menu_exit.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.menu_exit.Size = new System.Drawing.Size(38, 21);
+            this.menu_exit.Size = new System.Drawing.Size(42, 21);
             this.menu_exit.Text = "Exit";
             // 
             // groupBox_notearea
@@ -208,37 +210,42 @@ namespace SCI_9S12
             // 
             // txt_databasename
             // 
+            this.txt_databasename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_databasename.Location = new System.Drawing.Point(93, 170);
             this.txt_databasename.Name = "txt_databasename";
-            this.txt_databasename.Size = new System.Drawing.Size(152, 20);
+            this.txt_databasename.Size = new System.Drawing.Size(152, 23);
             this.txt_databasename.TabIndex = 21;
             // 
             // txt_port
             // 
+            this.txt_port.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_port.Location = new System.Drawing.Point(93, 134);
             this.txt_port.Name = "txt_port";
-            this.txt_port.Size = new System.Drawing.Size(152, 20);
+            this.txt_port.Size = new System.Drawing.Size(152, 23);
             this.txt_port.TabIndex = 20;
             // 
             // txt_password
             // 
+            this.txt_password.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_password.Location = new System.Drawing.Point(93, 98);
             this.txt_password.Name = "txt_password";
-            this.txt_password.Size = new System.Drawing.Size(152, 20);
+            this.txt_password.Size = new System.Drawing.Size(152, 23);
             this.txt_password.TabIndex = 19;
             // 
             // txt_username
             // 
+            this.txt_username.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_username.Location = new System.Drawing.Point(93, 62);
             this.txt_username.Name = "txt_username";
-            this.txt_username.Size = new System.Drawing.Size(152, 20);
+            this.txt_username.Size = new System.Drawing.Size(152, 23);
             this.txt_username.TabIndex = 18;
             // 
             // txt_servername
             // 
+            this.txt_servername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_servername.Location = new System.Drawing.Point(93, 26);
             this.txt_servername.Name = "txt_servername";
-            this.txt_servername.Size = new System.Drawing.Size(152, 20);
+            this.txt_servername.Size = new System.Drawing.Size(152, 23);
             this.txt_servername.TabIndex = 17;
             // 
             // lbl_database
@@ -319,7 +326,7 @@ namespace SCI_9S12
             // checkedListBox_selectfields
             // 
             this.checkedListBox_selectfields.CheckOnClick = true;
-            this.checkedListBox_selectfields.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkedListBox_selectfields.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox_selectfields.FormattingEnabled = true;
             this.checkedListBox_selectfields.Location = new System.Drawing.Point(16, 83);
             this.checkedListBox_selectfields.Name = "checkedListBox_selectfields";
@@ -329,13 +336,13 @@ namespace SCI_9S12
             // comboBox_tables
             // 
             this.comboBox_tables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_tables.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_tables.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox_tables.FormattingEnabled = true;
             this.comboBox_tables.Items.AddRange(new object[] {
             "Select target table"});
             this.comboBox_tables.Location = new System.Drawing.Point(84, 25);
             this.comboBox_tables.Name = "comboBox_tables";
-            this.comboBox_tables.Size = new System.Drawing.Size(161, 21);
+            this.comboBox_tables.Size = new System.Drawing.Size(161, 25);
             this.comboBox_tables.TabIndex = 24;
             // 
             // lbl_selectfields
@@ -360,9 +367,10 @@ namespace SCI_9S12
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBox_confirmtosubmitquery);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.txt_insertquery);
             this.groupBox2.Controls.Add(this.btn_finish);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -372,16 +380,6 @@ namespace SCI_9S12
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Query";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(7, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(239, 32);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "* Allow manually insert, incorrect query will \r\n   result data upload failure.";
             // 
             // label6
             // 
@@ -393,13 +391,15 @@ namespace SCI_9S12
             this.label6.TabIndex = 30;
             this.label6.Text = "* Insert query only.";
             // 
-            // textBox1
+            // txt_insertquery
             // 
-            this.textBox1.Location = new System.Drawing.Point(7, 97);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(264, 95);
-            this.textBox1.TabIndex = 28;
+            this.txt_insertquery.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_insertquery.Location = new System.Drawing.Point(7, 85);
+            this.txt_insertquery.Multiline = true;
+            this.txt_insertquery.Name = "txt_insertquery";
+            this.txt_insertquery.ReadOnly = true;
+            this.txt_insertquery.Size = new System.Drawing.Size(258, 69);
+            this.txt_insertquery.TabIndex = 28;
             // 
             // btn_finish
             // 
@@ -415,7 +415,7 @@ namespace SCI_9S12
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(6, 75);
+            this.label5.Location = new System.Drawing.Point(6, 63);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(94, 19);
             this.label5.TabIndex = 12;
@@ -431,22 +431,44 @@ namespace SCI_9S12
             this.label7.TabIndex = 17;
             this.label7.Text = "* Press \"Finish\" to confirm the MySQL Setup";
             // 
+            // checkBox_confirmtosubmitquery
+            // 
+            this.checkBox_confirmtosubmitquery.AutoSize = true;
+            this.checkBox_confirmtosubmitquery.ForeColor = System.Drawing.Color.Crimson;
+            this.checkBox_confirmtosubmitquery.Location = new System.Drawing.Point(6, 160);
+            this.checkBox_confirmtosubmitquery.Name = "checkBox_confirmtosubmitquery";
+            this.checkBox_confirmtosubmitquery.Size = new System.Drawing.Size(158, 17);
+            this.checkBox_confirmtosubmitquery.TabIndex = 32;
+            this.checkBox_confirmtosubmitquery.Text = "Confirm to submit query";
+            this.checkBox_confirmtosubmitquery.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(7, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(160, 16);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "* Confirm the query to finish ";
+            // 
             // MySQL_Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 348);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox_insertarea);
             this.Controls.Add(this.groupBox_notearea);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip_menu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip_menu;
             this.Name = "MySQL_Login";
             this.Text = "MySQL_Login";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip_menu.ResumeLayout(false);
+            this.menuStrip_menu.PerformLayout();
             this.groupBox_notearea.ResumeLayout(false);
             this.groupBox_notearea.PerformLayout();
             this.groupBox_insertarea.ResumeLayout(false);
@@ -461,7 +483,7 @@ namespace SCI_9S12
         }
 
         #endregion
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip_menu;
         private System.Windows.Forms.ToolStripMenuItem menu_file;
         private System.Windows.Forms.ToolStripMenuItem menu_file_import;
         private System.Windows.Forms.ToolStripMenuItem menu_file_export;
@@ -491,11 +513,12 @@ namespace SCI_9S12
         private System.Windows.Forms.CheckedListBox checkedListBox_selectfields;
         private System.Windows.Forms.Button btn_generatequery;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_insertquery;
         private System.Windows.Forms.Button btn_finish;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBox_confirmtosubmitquery;
+        private System.Windows.Forms.Label label4;
     }
 }

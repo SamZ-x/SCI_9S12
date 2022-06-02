@@ -34,7 +34,7 @@ namespace SCI_9S12
             this.comboBox_comport = new System.Windows.Forms.ComboBox();
             this.lbl_cpc_baudrate = new System.Windows.Forms.Label();
             this.lbl_cpc_comport = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip_menu = new System.Windows.Forms.MenuStrip();
             this.menu_file = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_file_savetotxt = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_file_savetomysql = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,13 +51,28 @@ namespace SCI_9S12
             this.progressBar_savetotxt = new System.Windows.Forms.ProgressBar();
             this.lbl_status_connection = new System.Windows.Forms.Label();
             this.progressBar_connection = new System.Windows.Forms.ProgressBar();
-            this.progressBar_receiving = new System.Windows.Forms.ProgressBar();
-            this.lbl_receiving = new System.Windows.Forms.Label();
-            this.lbl_uploading = new System.Windows.Forms.Label();
+            this.groupBox_datacontrol = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox_dataseparator = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txt_fieldsCount = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.progressBar_uploading = new System.Windows.Forms.ProgressBar();
+            this.lbl_uploading = new System.Windows.Forms.Label();
+            this.lbl_receiving = new System.Windows.Forms.Label();
+            this.progressBar_receiving = new System.Windows.Forms.ProgressBar();
+            this.txt_fieldsname = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_dataexample = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btn_receivepause = new System.Windows.Forms.Button();
             this.gbox_comportcontrol.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.menuStrip_menu.SuspendLayout();
             this.gbox_stauts.SuspendLayout();
+            this.groupBox_datacontrol.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbox_comportcontrol
@@ -66,10 +81,10 @@ namespace SCI_9S12
             this.gbox_comportcontrol.Controls.Add(this.comboBox_comport);
             this.gbox_comportcontrol.Controls.Add(this.lbl_cpc_baudrate);
             this.gbox_comportcontrol.Controls.Add(this.lbl_cpc_comport);
-            this.gbox_comportcontrol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbox_comportcontrol.Location = new System.Drawing.Point(12, 42);
+            this.gbox_comportcontrol.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbox_comportcontrol.Location = new System.Drawing.Point(11, 28);
             this.gbox_comportcontrol.Name = "gbox_comportcontrol";
-            this.gbox_comportcontrol.Size = new System.Drawing.Size(233, 102);
+            this.gbox_comportcontrol.Size = new System.Drawing.Size(233, 96);
             this.gbox_comportcontrol.TabIndex = 0;
             this.gbox_comportcontrol.TabStop = false;
             this.gbox_comportcontrol.Text = "COM PORT CONTROL";
@@ -78,51 +93,52 @@ namespace SCI_9S12
             // 
             this.comboBox_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_baudrate.FormattingEnabled = true;
-            this.comboBox_baudrate.Location = new System.Drawing.Point(96, 56);
+            this.comboBox_baudrate.Location = new System.Drawing.Point(83, 56);
             this.comboBox_baudrate.Name = "comboBox_baudrate";
-            this.comboBox_baudrate.Size = new System.Drawing.Size(121, 24);
+            this.comboBox_baudrate.Size = new System.Drawing.Size(121, 25);
             this.comboBox_baudrate.TabIndex = 3;
             // 
             // comboBox_comport
             // 
             this.comboBox_comport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_comport.FormattingEnabled = true;
-            this.comboBox_comport.Location = new System.Drawing.Point(96, 24);
+            this.comboBox_comport.Location = new System.Drawing.Point(83, 24);
             this.comboBox_comport.Name = "comboBox_comport";
-            this.comboBox_comport.Size = new System.Drawing.Size(121, 24);
+            this.comboBox_comport.Size = new System.Drawing.Size(121, 25);
             this.comboBox_comport.TabIndex = 2;
             // 
             // lbl_cpc_baudrate
             // 
             this.lbl_cpc_baudrate.AutoSize = true;
-            this.lbl_cpc_baudrate.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cpc_baudrate.Location = new System.Drawing.Point(7, 55);
+            this.lbl_cpc_baudrate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_cpc_baudrate.Location = new System.Drawing.Point(6, 56);
             this.lbl_cpc_baudrate.Name = "lbl_cpc_baudrate";
-            this.lbl_cpc_baudrate.Size = new System.Drawing.Size(84, 19);
+            this.lbl_cpc_baudrate.Size = new System.Drawing.Size(77, 17);
             this.lbl_cpc_baudrate.TabIndex = 1;
             this.lbl_cpc_baudrate.Text = "BAUD RATE:";
             // 
             // lbl_cpc_comport
             // 
             this.lbl_cpc_comport.AutoSize = true;
-            this.lbl_cpc_comport.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cpc_comport.Location = new System.Drawing.Point(7, 23);
+            this.lbl_cpc_comport.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_cpc_comport.Location = new System.Drawing.Point(6, 28);
             this.lbl_cpc_comport.Name = "lbl_cpc_comport";
-            this.lbl_cpc_comport.Size = new System.Drawing.Size(83, 19);
+            this.lbl_cpc_comport.Size = new System.Drawing.Size(76, 17);
             this.lbl_cpc_comport.TabIndex = 0;
             this.lbl_cpc_comport.Text = "COM PORT:";
             // 
-            // menuStrip1
+            // menuStrip_menu
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip_menu.BackColor = System.Drawing.SystemColors.Highlight;
+            this.menuStrip_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menu_file,
             this.menu_comcontrol,
             this.menu_about});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(446, 25);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip_menu.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip_menu.Name = "menuStrip_menu";
+            this.menuStrip_menu.Size = new System.Drawing.Size(443, 25);
+            this.menuStrip_menu.TabIndex = 1;
+            this.menuStrip_menu.Text = "menuStrip1";
             // 
             // menu_file
             // 
@@ -132,6 +148,7 @@ namespace SCI_9S12
             this.toolStripSeparator1,
             this.menu_file_close});
             this.menu_file.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menu_file.ForeColor = System.Drawing.SystemColors.ControlText;
             this.menu_file.Name = "menu_file";
             this.menu_file.Size = new System.Drawing.Size(40, 21);
             this.menu_file.Text = "File";
@@ -172,19 +189,20 @@ namespace SCI_9S12
             // menu_comcontrol_connect
             // 
             this.menu_comcontrol_connect.Name = "menu_comcontrol_connect";
-            this.menu_comcontrol_connect.Size = new System.Drawing.Size(142, 22);
+            this.menu_comcontrol_connect.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_connect.Text = "Connect";
             // 
             // menu_comcontrol_disconnect
             // 
             this.menu_comcontrol_disconnect.Name = "menu_comcontrol_disconnect";
-            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(142, 22);
+            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_disconnect.Text = "Disconnect";
             // 
             // menu_about
             // 
+            this.menu_about.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menu_about.Name = "menu_about";
-            this.menu_about.Size = new System.Drawing.Size(52, 21);
+            this.menu_about.Size = new System.Drawing.Size(58, 21);
             this.menu_about.Text = "About";
             // 
             // gbox_stauts
@@ -195,13 +213,13 @@ namespace SCI_9S12
             this.gbox_stauts.Controls.Add(this.progressBar_savetotxt);
             this.gbox_stauts.Controls.Add(this.lbl_status_connection);
             this.gbox_stauts.Controls.Add(this.progressBar_connection);
-            this.gbox_stauts.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbox_stauts.Location = new System.Drawing.Point(251, 42);
+            this.gbox_stauts.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbox_stauts.Location = new System.Drawing.Point(249, 28);
             this.gbox_stauts.Name = "gbox_stauts";
-            this.gbox_stauts.Size = new System.Drawing.Size(181, 102);
+            this.gbox_stauts.Size = new System.Drawing.Size(181, 96);
             this.gbox_stauts.TabIndex = 2;
             this.gbox_stauts.TabStop = false;
-            this.gbox_stauts.Text = "Status";
+            this.gbox_stauts.Text = "Functions";
             // 
             // lbl_status_savetomysql
             // 
@@ -254,63 +272,222 @@ namespace SCI_9S12
             this.progressBar_connection.Size = new System.Drawing.Size(56, 19);
             this.progressBar_connection.TabIndex = 0;
             // 
-            // progressBar_receiving
+            // groupBox_datacontrol
             // 
-            this.progressBar_receiving.Location = new System.Drawing.Point(84, 155);
-            this.progressBar_receiving.Name = "progressBar_receiving";
-            this.progressBar_receiving.Size = new System.Drawing.Size(348, 15);
-            this.progressBar_receiving.TabIndex = 3;
+            this.groupBox_datacontrol.Controls.Add(this.txt_dataexample);
+            this.groupBox_datacontrol.Controls.Add(this.label6);
+            this.groupBox_datacontrol.Controls.Add(this.label5);
+            this.groupBox_datacontrol.Controls.Add(this.txt_fieldsname);
+            this.groupBox_datacontrol.Controls.Add(this.txt_fieldsCount);
+            this.groupBox_datacontrol.Controls.Add(this.label4);
+            this.groupBox_datacontrol.Controls.Add(this.label3);
+            this.groupBox_datacontrol.Controls.Add(this.comboBox_dataseparator);
+            this.groupBox_datacontrol.Controls.Add(this.label2);
+            this.groupBox_datacontrol.Controls.Add(this.label1);
+            this.groupBox_datacontrol.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_datacontrol.Location = new System.Drawing.Point(11, 205);
+            this.groupBox_datacontrol.Name = "groupBox_datacontrol";
+            this.groupBox_datacontrol.Size = new System.Drawing.Size(419, 171);
+            this.groupBox_datacontrol.TabIndex = 9;
+            this.groupBox_datacontrol.TabStop = false;
+            this.groupBox_datacontrol.Text = "Data Control For Database";
             // 
-            // lbl_receiving
+            // label1
             // 
-            this.lbl_receiving.AutoSize = true;
-            this.lbl_receiving.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_receiving.Location = new System.Drawing.Point(8, 151);
-            this.lbl_receiving.Name = "lbl_receiving";
-            this.lbl_receiving.Size = new System.Drawing.Size(70, 19);
-            this.lbl_receiving.TabIndex = 6;
-            this.lbl_receiving.Text = "Receiving:";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Navy;
+            this.label1.Location = new System.Drawing.Point(9, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(206, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "* Enable when connected to database";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(9, 113);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 17);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Data Separator:";
+            // 
+            // comboBox_dataseparator
+            // 
+            this.comboBox_dataseparator.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_dataseparator.FormattingEnabled = true;
+            this.comboBox_dataseparator.Items.AddRange(new object[] {
+            "Select one",
+            ",",
+            "/",
+            "\\",
+            "|",
+            "_",
+            ";"});
+            this.comboBox_dataseparator.Location = new System.Drawing.Point(118, 109);
+            this.comboBox_dataseparator.Name = "comboBox_dataseparator";
+            this.comboBox_dataseparator.Size = new System.Drawing.Size(98, 25);
+            this.comboBox_dataseparator.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Crimson;
+            this.label3.Location = new System.Drawing.Point(9, 50);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(212, 48);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "* Data format should highly match the \r\n   setting in order to upload data\r\n   co" +
+    "rrectly ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(224, 21);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Fields:";
+            // 
+            // txt_fieldsCount
+            // 
+            this.txt_fieldsCount.Location = new System.Drawing.Point(275, 18);
+            this.txt_fieldsCount.Name = "txt_fieldsCount";
+            this.txt_fieldsCount.ReadOnly = true;
+            this.txt_fieldsCount.Size = new System.Drawing.Size(35, 25);
+            this.txt_fieldsCount.TabIndex = 11;
+            this.txt_fieldsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.progressBar_uploading);
+            this.groupBox1.Controls.Add(this.lbl_uploading);
+            this.groupBox1.Controls.Add(this.lbl_receiving);
+            this.groupBox1.Controls.Add(this.progressBar_receiving);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(10, 125);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(233, 69);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Data Status";
+            // 
+            // progressBar_uploading
+            // 
+            this.progressBar_uploading.Location = new System.Drawing.Point(83, 46);
+            this.progressBar_uploading.Name = "progressBar_uploading";
+            this.progressBar_uploading.Size = new System.Drawing.Size(134, 15);
+            this.progressBar_uploading.TabIndex = 12;
             // 
             // lbl_uploading
             // 
             this.lbl_uploading.AutoSize = true;
-            this.lbl_uploading.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_uploading.Location = new System.Drawing.Point(7, 171);
+            this.lbl_uploading.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_uploading.Location = new System.Drawing.Point(6, 40);
             this.lbl_uploading.Name = "lbl_uploading";
-            this.lbl_uploading.Size = new System.Drawing.Size(75, 19);
-            this.lbl_uploading.TabIndex = 7;
+            this.lbl_uploading.Size = new System.Drawing.Size(72, 17);
+            this.lbl_uploading.TabIndex = 11;
             this.lbl_uploading.Text = "Uploading:";
             // 
-            // progressBar_uploading
+            // lbl_receiving
             // 
-            this.progressBar_uploading.Location = new System.Drawing.Point(84, 177);
-            this.progressBar_uploading.Name = "progressBar_uploading";
-            this.progressBar_uploading.Size = new System.Drawing.Size(19, 13);
-            this.progressBar_uploading.TabIndex = 8;
+            this.lbl_receiving.AutoSize = true;
+            this.lbl_receiving.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_receiving.Location = new System.Drawing.Point(7, 20);
+            this.lbl_receiving.Name = "lbl_receiving";
+            this.lbl_receiving.Size = new System.Drawing.Size(49, 17);
+            this.lbl_receiving.TabIndex = 10;
+            this.lbl_receiving.Text = "Saving:";
+            // 
+            // progressBar_receiving
+            // 
+            this.progressBar_receiving.Location = new System.Drawing.Point(83, 24);
+            this.progressBar_receiving.Name = "progressBar_receiving";
+            this.progressBar_receiving.Size = new System.Drawing.Size(134, 15);
+            this.progressBar_receiving.TabIndex = 9;
+            // 
+            // txt_fieldsname
+            // 
+            this.txt_fieldsname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_fieldsname.Location = new System.Drawing.Point(222, 49);
+            this.txt_fieldsname.Multiline = true;
+            this.txt_fieldsname.Name = "txt_fieldsname";
+            this.txt_fieldsname.ReadOnly = true;
+            this.txt_fieldsname.Size = new System.Drawing.Size(183, 85);
+            this.txt_fieldsname.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Navy;
+            this.label5.Location = new System.Drawing.Point(9, 34);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(197, 16);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "* Select separator to format the data";
+            // 
+            // txt_dataexample
+            // 
+            this.txt_dataexample.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txt_dataexample.Location = new System.Drawing.Point(118, 138);
+            this.txt_dataexample.Name = "txt_dataexample";
+            this.txt_dataexample.ReadOnly = true;
+            this.txt_dataexample.Size = new System.Drawing.Size(287, 25);
+            this.txt_dataexample.TabIndex = 15;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(9, 141);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 17);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Data Example:";
+            // 
+            // btn_receivepause
+            // 
+            this.btn_receivepause.BackColor = System.Drawing.Color.SeaGreen;
+            this.btn_receivepause.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_receivepause.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_receivepause.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_receivepause.Location = new System.Drawing.Point(286, 134);
+            this.btn_receivepause.Name = "btn_receivepause";
+            this.btn_receivepause.Size = new System.Drawing.Size(121, 65);
+            this.btn_receivepause.TabIndex = 11;
+            this.btn_receivepause.Text = "Start/Pause";
+            this.btn_receivepause.UseVisualStyleBackColor = false;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.ClientSize = new System.Drawing.Size(446, 199);
-            this.Controls.Add(this.progressBar_uploading);
-            this.Controls.Add(this.lbl_uploading);
-            this.Controls.Add(this.lbl_receiving);
-            this.Controls.Add(this.progressBar_receiving);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(443, 388);
+            this.Controls.Add(this.btn_receivepause);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox_datacontrol);
             this.Controls.Add(this.gbox_stauts);
             this.Controls.Add(this.gbox_comportcontrol);
-            this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.menuStrip_menu);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MainMenuStrip = this.menuStrip_menu;
             this.Name = "Main";
             this.Text = "SCI_9S12_PC";
             this.gbox_comportcontrol.ResumeLayout(false);
             this.gbox_comportcontrol.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip_menu.ResumeLayout(false);
+            this.menuStrip_menu.PerformLayout();
             this.gbox_stauts.ResumeLayout(false);
             this.gbox_stauts.PerformLayout();
+            this.groupBox_datacontrol.ResumeLayout(false);
+            this.groupBox_datacontrol.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,7 +500,7 @@ namespace SCI_9S12
         private System.Windows.Forms.ComboBox comboBox_comport;
         private System.Windows.Forms.Label lbl_cpc_baudrate;
         private System.Windows.Forms.Label lbl_cpc_comport;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip_menu;
         private System.Windows.Forms.ToolStripMenuItem menu_file;
         private System.Windows.Forms.ToolStripMenuItem menu_file_savetotxt;
         private System.Windows.Forms.ToolStripMenuItem menu_file_savetomysql;
@@ -340,10 +517,23 @@ namespace SCI_9S12
         private System.Windows.Forms.ProgressBar progressBar_savetotxt;
         private System.Windows.Forms.Label lbl_status_connection;
         private System.Windows.Forms.ProgressBar progressBar_connection;
-        private System.Windows.Forms.ProgressBar progressBar_receiving;
-        private System.Windows.Forms.Label lbl_receiving;
-        private System.Windows.Forms.Label lbl_uploading;
+        private System.Windows.Forms.GroupBox groupBox_datacontrol;
+        private System.Windows.Forms.ComboBox comboBox_dataseparator;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txt_fieldsCount;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ProgressBar progressBar_uploading;
+        private System.Windows.Forms.Label lbl_uploading;
+        private System.Windows.Forms.Label lbl_receiving;
+        private System.Windows.Forms.ProgressBar progressBar_receiving;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txt_fieldsname;
+        private System.Windows.Forms.TextBox txt_dataexample;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn_receivepause;
     }
 }
 
