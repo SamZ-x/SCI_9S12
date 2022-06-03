@@ -238,6 +238,7 @@ namespace SCI_9S12
             groupBox_datacontrol.Enabled = true;
             txt_fieldsCount.Text = _dbInfo.FieldCount.ToString();
             txt_fieldsname.Text = _dbInfo.FieldsOfDatabase;
+            comboBox_dataseparator.Enabled = true;
             comboBox_dataseparator.SelectedIndex = 0;
 
             //no need to select separator if only select one data field 
@@ -436,8 +437,7 @@ namespace SCI_9S12
                     //open connection
                     _mysql_conn.Open();
 
-                    //database opertation part               ---NEED to update the insert(only works on specific database, table)
-                    //string InsertQuery = $"INSERT INTO `dataIn`(`date`, `dataDetail`) VALUES('{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{_dataIn}')";
+                    //database opertation part                     
                     string InsertQuery = $"INSERT INTO `{_dbInfo.TableName}`({_dbInfo.FieldsOfDatabase}) VALUES ({paramters})";
                     //create command on the current mysql connection
                     MySqlCommand _mysql_comm = new MySqlCommand(InsertQuery, _mysql_conn);
@@ -450,8 +450,6 @@ namespace SCI_9S12
                 //if any error occured,display error message.
                 MessageBox.Show(error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         /// <summary>
