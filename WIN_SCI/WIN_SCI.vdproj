@@ -238,12 +238,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DF3E792F22AF9181FC6220DC81513C93"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_8BCEE469129C4B8F9814C158A4E58590"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -325,6 +319,12 @@
         "OwnerKey" = "8:_FBB19335954CF9E2113D45DDD0BE3149"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DF3E792F22AF9181FC6220DC81513C93"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -343,6 +343,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -359,6 +375,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -910,7 +934,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_C2EC795265E1489398D39E072D58D739"
                     {
-                    "Name" = "8:Doc"
+                    "Name" = "8:WIN SCI"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -950,7 +974,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WIN SCI"
         "ProductCode" = "8:{01266623-305A-4FDD-91D1-43E1F52F9FB0}"
-        "PackageCode" = "8:{F3D7CE1F-BDB6-4524-86B5-14A942200EFA}"
+        "PackageCode" = "8:{D3C06A53-FC4E-4773-902B-731718BAF7B3}"
         "UpgradeCode" = "8:{5FBD6285-70B4-446D-9C25-A208775EE07B}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1070,6 +1094,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1C787370DFDA483D9EBD5C9542290187"
+            {
+            "Name" = "8:WIN SCI 1.0.0"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_8BCEE469129C4B8F9814C158A4E58590"
+            "Folder" = "8:_C2EC795265E1489398D39E072D58D739"
+            "WorkingFolder" = "8:_D598D227940341848CC973401C944A9C"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_321876B2B3D6412EB1500C39F06F9EEB"
             {
             "Name" = "8:(Template) MySQL_config.txt"
