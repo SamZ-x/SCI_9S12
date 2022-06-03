@@ -63,7 +63,8 @@ namespace SCI_9S12
             menu_comcontrol_connect.Click += Menu_comcontrol_connect_Click;
             menu_comcontrol_disconnect.Click += Menu_comcontrol_disconnect_Click;
             btn_receivepause.Click += Btn_receivepause_Click;
-
+            btn_refreshcom.Click += Btn_refreshcom_Click;
+            
             //file events
             menu_file_savetotxt.Click += Menu_file_savetotxt_Click;
             menu_file_savetomysql.Click += Menu_file_savetomysql_Click;
@@ -97,6 +98,18 @@ namespace SCI_9S12
             //disable data control section
             groupBox_datacontrol.Enabled = false;
             btn_receivepause.Enabled = false;
+        }
+
+        /// <summary>
+        /// Refresh com port list
+        /// </summary>
+        private void Btn_refreshcom_Click(object sender, EventArgs e)
+        {
+            //get the avariable serial port (refresh)
+            string[] PortList = SerialPort.GetPortNames();
+            comboBox_comport.Items.Clear();
+            comboBox_comport.Items.AddRange(PortList);
+            comboBox_comport.SelectedIndex = 0;
         }
 
         /// <summary>

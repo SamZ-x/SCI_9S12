@@ -311,8 +311,6 @@ namespace SCI_9S12
 
                         //Show avariable tables in dropdown list
                         Invoke(new Action(() => ShowDatabaseDetialToControl(FieldList, checkedListBox_selectfields)));
-
-
                     }
                 }
             }
@@ -404,7 +402,12 @@ namespace SCI_9S12
                 combobox.Items.AddRange(itemlist.ToArray());
 
             if (control is CheckedListBox checkedListbox)
+            {
+                //always show the lastest items
+                checkedListbox.Items.Clear();
                 checkedListbox.Items.AddRange(itemlist.ToArray());
+            }
+
         }
 
         #endregion

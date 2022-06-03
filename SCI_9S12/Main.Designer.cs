@@ -30,6 +30,7 @@ namespace SCI_9S12
         private void InitializeComponent()
         {
             this.gbox_comportcontrol = new System.Windows.Forms.GroupBox();
+            this.btn_refreshcom = new System.Windows.Forms.Button();
             this.comboBox_baudrate = new System.Windows.Forms.ComboBox();
             this.comboBox_comport = new System.Windows.Forms.ComboBox();
             this.lbl_cpc_baudrate = new System.Windows.Forms.Label();
@@ -52,21 +53,21 @@ namespace SCI_9S12
             this.lbl_status_connection = new System.Windows.Forms.Label();
             this.progressBar_connection = new System.Windows.Forms.ProgressBar();
             this.groupBox_datacontrol = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBox_dataseparator = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.txt_dataexample = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_fieldsname = new System.Windows.Forms.TextBox();
             this.txt_fieldsCount = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox_dataseparator = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.progressBar_uploading = new System.Windows.Forms.ProgressBar();
             this.lbl_uploading = new System.Windows.Forms.Label();
             this.lbl_receiving = new System.Windows.Forms.Label();
             this.progressBar_receiving = new System.Windows.Forms.ProgressBar();
-            this.txt_fieldsname = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txt_dataexample = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.btn_receivepause = new System.Windows.Forms.Button();
             this.gbox_comportcontrol.SuspendLayout();
             this.menuStrip_menu.SuspendLayout();
@@ -77,6 +78,7 @@ namespace SCI_9S12
             // 
             // gbox_comportcontrol
             // 
+            this.gbox_comportcontrol.Controls.Add(this.btn_refreshcom);
             this.gbox_comportcontrol.Controls.Add(this.comboBox_baudrate);
             this.gbox_comportcontrol.Controls.Add(this.comboBox_comport);
             this.gbox_comportcontrol.Controls.Add(this.lbl_cpc_baudrate);
@@ -88,6 +90,21 @@ namespace SCI_9S12
             this.gbox_comportcontrol.TabIndex = 0;
             this.gbox_comportcontrol.TabStop = false;
             this.gbox_comportcontrol.Text = "COM PORT CONTROL";
+            // 
+            // btn_refreshcom
+            // 
+            this.btn_refreshcom.AutoSize = true;
+            this.btn_refreshcom.BackColor = System.Drawing.Color.Transparent;
+            this.btn_refreshcom.FlatAppearance.BorderSize = 0;
+            this.btn_refreshcom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btn_refreshcom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btn_refreshcom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_refreshcom.Image = global::SCI_9S12.Properties.Resources.refresh_16px;
+            this.btn_refreshcom.Location = new System.Drawing.Point(207, 25);
+            this.btn_refreshcom.Name = "btn_refreshcom";
+            this.btn_refreshcom.Size = new System.Drawing.Size(22, 22);
+            this.btn_refreshcom.TabIndex = 4;
+            this.btn_refreshcom.UseVisualStyleBackColor = false;
             // 
             // comboBox_baudrate
             // 
@@ -156,24 +173,24 @@ namespace SCI_9S12
             // menu_file_savetotxt
             // 
             this.menu_file_savetotxt.Name = "menu_file_savetotxt";
-            this.menu_file_savetotxt.Size = new System.Drawing.Size(180, 22);
+            this.menu_file_savetotxt.Size = new System.Drawing.Size(167, 22);
             this.menu_file_savetotxt.Text = "Save to TXT";
             // 
             // menu_file_savetomysql
             // 
             this.menu_file_savetomysql.Name = "menu_file_savetomysql";
-            this.menu_file_savetomysql.Size = new System.Drawing.Size(180, 22);
+            this.menu_file_savetomysql.Size = new System.Drawing.Size(167, 22);
             this.menu_file_savetomysql.Text = "Save to MySQL";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(164, 6);
             // 
             // menu_file_close
             // 
             this.menu_file_close.Name = "menu_file_close";
-            this.menu_file_close.Size = new System.Drawing.Size(180, 22);
+            this.menu_file_close.Size = new System.Drawing.Size(167, 22);
             this.menu_file_close.Text = "Close";
             // 
             // menu_comcontrol
@@ -189,13 +206,13 @@ namespace SCI_9S12
             // menu_comcontrol_connect
             // 
             this.menu_comcontrol_connect.Name = "menu_comcontrol_connect";
-            this.menu_comcontrol_connect.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_connect.Size = new System.Drawing.Size(142, 22);
             this.menu_comcontrol_connect.Text = "Connect";
             // 
             // menu_comcontrol_disconnect
             // 
             this.menu_comcontrol_disconnect.Name = "menu_comcontrol_disconnect";
-            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(142, 22);
             this.menu_comcontrol_disconnect.Text = "Disconnect";
             // 
             // menu_about
@@ -292,26 +309,76 @@ namespace SCI_9S12
             this.groupBox_datacontrol.TabStop = false;
             this.groupBox_datacontrol.Text = "Data Control For Database";
             // 
-            // label1
+            // txt_dataexample
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(9, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(206, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "* Enable when connected to database";
+            this.txt_dataexample.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txt_dataexample.Location = new System.Drawing.Point(118, 138);
+            this.txt_dataexample.Name = "txt_dataexample";
+            this.txt_dataexample.ReadOnly = true;
+            this.txt_dataexample.Size = new System.Drawing.Size(287, 25);
+            this.txt_dataexample.TabIndex = 15;
             // 
-            // label2
+            // label6
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(9, 113);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 17);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Data Separator:";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(9, 141);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 17);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Data Example:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Navy;
+            this.label5.Location = new System.Drawing.Point(9, 34);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(197, 16);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "* Select separator to format the data";
+            // 
+            // txt_fieldsname
+            // 
+            this.txt_fieldsname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_fieldsname.Location = new System.Drawing.Point(222, 49);
+            this.txt_fieldsname.Multiline = true;
+            this.txt_fieldsname.Name = "txt_fieldsname";
+            this.txt_fieldsname.ReadOnly = true;
+            this.txt_fieldsname.Size = new System.Drawing.Size(183, 85);
+            this.txt_fieldsname.TabIndex = 12;
+            // 
+            // txt_fieldsCount
+            // 
+            this.txt_fieldsCount.Location = new System.Drawing.Point(275, 18);
+            this.txt_fieldsCount.Name = "txt_fieldsCount";
+            this.txt_fieldsCount.ReadOnly = true;
+            this.txt_fieldsCount.Size = new System.Drawing.Size(35, 25);
+            this.txt_fieldsCount.TabIndex = 11;
+            this.txt_fieldsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(224, 21);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Fields:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Crimson;
+            this.label3.Location = new System.Drawing.Point(9, 50);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(212, 48);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "* Data format should highly match the \r\n   setting in order to upload data\r\n   co" +
+    "rrectly ";
             // 
             // comboBox_dataseparator
             // 
@@ -330,36 +397,26 @@ namespace SCI_9S12
             this.comboBox_dataseparator.Size = new System.Drawing.Size(98, 25);
             this.comboBox_dataseparator.TabIndex = 8;
             // 
-            // label3
+            // label2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Crimson;
-            this.label3.Location = new System.Drawing.Point(9, 50);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 48);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "* Data format should highly match the \r\n   setting in order to upload data\r\n   co" +
-    "rrectly ";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(9, 113);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 17);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Data Separator:";
             // 
-            // label4
+            // label1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(224, 21);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 17);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Fields:";
-            // 
-            // txt_fieldsCount
-            // 
-            this.txt_fieldsCount.Location = new System.Drawing.Point(275, 18);
-            this.txt_fieldsCount.Name = "txt_fieldsCount";
-            this.txt_fieldsCount.ReadOnly = true;
-            this.txt_fieldsCount.Size = new System.Drawing.Size(35, 25);
-            this.txt_fieldsCount.TabIndex = 11;
-            this.txt_fieldsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Navy;
+            this.label1.Location = new System.Drawing.Point(9, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(206, 16);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "* Enable when connected to database";
             // 
             // groupBox1
             // 
@@ -408,46 +465,6 @@ namespace SCI_9S12
             this.progressBar_receiving.Name = "progressBar_receiving";
             this.progressBar_receiving.Size = new System.Drawing.Size(134, 15);
             this.progressBar_receiving.TabIndex = 9;
-            // 
-            // txt_fieldsname
-            // 
-            this.txt_fieldsname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_fieldsname.Location = new System.Drawing.Point(222, 49);
-            this.txt_fieldsname.Multiline = true;
-            this.txt_fieldsname.Name = "txt_fieldsname";
-            this.txt_fieldsname.ReadOnly = true;
-            this.txt_fieldsname.Size = new System.Drawing.Size(183, 85);
-            this.txt_fieldsname.TabIndex = 12;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Navy;
-            this.label5.Location = new System.Drawing.Point(9, 34);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(197, 16);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "* Select separator to format the data";
-            // 
-            // txt_dataexample
-            // 
-            this.txt_dataexample.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txt_dataexample.Location = new System.Drawing.Point(118, 138);
-            this.txt_dataexample.Name = "txt_dataexample";
-            this.txt_dataexample.ReadOnly = true;
-            this.txt_dataexample.Size = new System.Drawing.Size(287, 25);
-            this.txt_dataexample.TabIndex = 15;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 141);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(94, 17);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Data Example:";
             // 
             // btn_receivepause
             // 
@@ -534,6 +551,7 @@ namespace SCI_9S12
         private System.Windows.Forms.TextBox txt_dataexample;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btn_receivepause;
+        private System.Windows.Forms.Button btn_refreshcom;
     }
 }
 
