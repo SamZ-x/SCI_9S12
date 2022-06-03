@@ -57,6 +57,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2AA71889E91643999F7A0E4B66C8B587"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_328B8C6B5DF68F1CC5F03A256835EA89"
         "OwnerKey" = "8:_906C66CC8AFD5B89DE6626753BC13530"
         "MsmSig" = "8:_UNDEFINED"
@@ -382,6 +388,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -503,6 +517,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2AA71889E91643999F7A0E4B66C8B587"
+            {
+            "SourcePath" = "8:..\\..\\setupfiles\\Introduction.url"
+            "TargetName" = "8:Introduction.url"
+            "Tag" = "8:"
+            "Folder" = "8:_D598D227940341848CC973401C944A9C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_328B8C6B5DF68F1CC5F03A256835EA89"
@@ -974,7 +1008,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:WIN SCI"
         "ProductCode" = "8:{01266623-305A-4FDD-91D1-43E1F52F9FB0}"
-        "PackageCode" = "8:{D3C06A53-FC4E-4773-902B-731718BAF7B3}"
+        "PackageCode" = "8:{1C9EFA60-BCE9-4611-B4A2-18DC6827A722}"
         "UpgradeCode" = "8:{5FBD6285-70B4-446D-9C25-A208775EE07B}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1148,6 +1182,20 @@
             "Folder" = "8:_6B5A79E9F2B44935A3A0902C6687C285"
             "WorkingFolder" = "8:_D598D227940341848CC973401C944A9C"
             "Icon" = "8:_725198ED2CD147BCB0440B318928120C"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_ED7EA4C7E97348B48D694F81D44392B0"
+            {
+            "Name" = "8:Introduction.url"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_2AA71889E91643999F7A0E4B66C8B587"
+            "Folder" = "8:_C2EC795265E1489398D39E072D58D739"
+            "WorkingFolder" = "8:_D598D227940341848CC973401C944A9C"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FB55D21217554A9C84B6C620C9250DA4"
