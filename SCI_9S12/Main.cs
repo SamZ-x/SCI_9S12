@@ -6,6 +6,7 @@
  *      Jun 01, 2022 finished upload to MySQL
  *      Jun 02, 2022 add database table, field selection, data separator selection. 
  *                   In SaveToMySQL mode, add data varidation and manipulation. Update UI,and functionality test.
+ *      Jun 04, 2022 fix bugs, add monitor function
  */
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,9 @@ namespace SCI_9S12
         MySqlConnection _mysql_conn = null;
         DatabaseInfo _dbInfo;
         char _dataSepatator;
+
+        //monitor
+        Monitor Monitor_Page = null;
         #endregion
 
 
@@ -58,6 +62,7 @@ namespace SCI_9S12
             #region Events
             //main form events
             Load += Main_Load;
+            menu_monitor.Click += Menu_monitor_Click;
 
             //com port control events
             menu_comcontrol_connect.Click += Menu_comcontrol_connect_Click;
@@ -72,13 +77,22 @@ namespace SCI_9S12
             menu_about.Click += (sender, e) => { new Help_Page().ShowDialog(); };  //show the help doc
             menuStrip_menu.MouseDown += MenuStrip_menu_MouseDown;
 
+
             //data control
             comboBox_dataseparator.SelectedIndexChanged += ComboBox_dataseparator_SelectedIndexChanged;
             #endregion
 
         }
-
         #region Event handlers
+
+        /// <summary>
+        /// Open live monitor page
+        /// </summary>
+        private void Menu_monitor_Click(object sender, EventArgs e)
+        {
+            Monitor_Page = new Monitor();
+            Monitor_Page.Show();
+        }
 
         /// <summary>
         /// Initialize UI when load the form
@@ -94,6 +108,11 @@ namespace SCI_9S12
             string[] BaudRateList = { "75", "110", "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "38400" };
             comboBox_baudrate.Items.AddRange(BaudRateList);
             comboBox_baudrate.SelectedIndex = 7;
+
+            //default seting for serial port
+            comboBox_options_parity.SelectedIndex = 0;
+            comboBox_options_databits.SelectedIndex = 3;
+            comboBox__options_stopbits.SelectedIndex = 1;
 
             //disable data control section
             groupBox_datacontrol.Enabled = false;
@@ -117,9 +136,13 @@ namespace SCI_9S12
         /// </summary>
         private void _newSerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            
             //retrieve data from current port
-            _dataIn = _newSerialPort.ReadExisting();
-
+            //_dataIn = _newSerialPort.ReadExisting();
+            _dataIn = _newSerialPort.ReadLine();
+            //_dataIn = _newSerialPort.ReadTo("T");
+            WriteLine(_dataIn);
+            
             //discard received data if not intend to save
             if (!IsCaptureData)
             {
@@ -141,6 +164,9 @@ namespace SCI_9S12
                     if (_dataList.Length != _dbInfo.FieldCount)
                     {
                         MessageBox.Show("Error: Invalid Data Separator! Fail to match the data field.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //reset the operation button, and receive flag
+                        //Invoke(new Action());
+                        Invoke(new Action(() => { Reset_btn_receivepause(); comboBox_dataseparator.Enabled = true; comboBox_dataseparator.SelectedIndex = 0; }));
                         return;
                     }
 
@@ -159,8 +185,8 @@ namespace SCI_9S12
             }
 
             //Update UI
-            _dataCounter = _dataCounter == 100 ? 0 : ++_dataCounter;  //Use to indicate receiving data.
-            Invoke(new Action(() => { progressBar_receiving.Value = _dataCounter; }));  //indicate receiving data
+            _dataCounter = _dataCounter == 100 ? 0 : _dataCounter+10;  //Use to indicate receiving data.
+            Invoke(new Action(() => { progressBar_saving.Value = _dataCounter; }));  //indicate receiving data
 
             //Take action
             //save data control(base on user selection)
@@ -173,7 +199,7 @@ namespace SCI_9S12
         /// </summary>
         private void Menu_file_savetotxt_Click(object sender, EventArgs e)
         {
-            //cancel save to txt
+            //cancel SaveToTxt option
             if (menu_file_savetotxt.Checked)
             {
                 //reset UI and return
@@ -183,10 +209,9 @@ namespace SCI_9S12
                 //check other saving option before turn off saving data
                 if (!menu_file_savetomysql.Checked)
                 {
-                    IsCaptureData = false;
-                    btn_receivepause.Text = "Start/Pause";
-                    btn_receivepause.Enabled = false;
-                    progressBar_receiving.Value = 0;
+                    //reset operation button
+                    Reset_btn_receivepause();
+                    progressBar_saving.Value = 0;
                 }
                 return;
             }
@@ -216,7 +241,7 @@ namespace SCI_9S12
         /// </summary>
         private void Menu_file_savetomysql_Click(object sender, EventArgs e)
         {
-            //cancel upload to mysql database
+            //cancel MySQL option
             if (menu_file_savetomysql.Checked)
             {
                 //reset 
@@ -226,10 +251,9 @@ namespace SCI_9S12
 
                 if (!menu_file_savetotxt.Checked)
                 {
-                    IsCaptureData = false;
-                    btn_receivepause.Text = "Start/Pause";
-                    btn_receivepause.Enabled = false;
-                    progressBar_receiving.Value = 0;
+                    //reset operation button
+                    Reset_btn_receivepause();
+                    progressBar_saving.Value = 0;
                 }
                 return;
             }
@@ -246,8 +270,6 @@ namespace SCI_9S12
                 return;
 
             //connection is good, update the UI, enable data control section
-            menu_file_savetomysql.Checked = true;
-            progressBar_savetomysql.Value = 100;
             groupBox_datacontrol.Enabled = true;
             txt_fieldsCount.Text = _dbInfo.FieldCount.ToString();
             txt_fieldsname.Text = _dbInfo.FieldsOfDatabase;
@@ -257,13 +279,14 @@ namespace SCI_9S12
             //no need to select separator if only select one data field 
             if (_dbInfo.FieldCount == 1)
             {
+                menu_file_savetomysql.Checked = true;
                 comboBox_dataseparator.Enabled = false;
                 txt_dataexample.Text = _dbInfo.FieldsOfDatabase;
-            }
 
-            //also check the connection. if connected, enable receivepause button
-            if(_newSerialPort != null && _newSerialPort.IsOpen)
-                btn_receivepause.Enabled = true;
+                //also check the connection. if connected, enable receivepause button
+                if (_newSerialPort != null && _newSerialPort.IsOpen)
+                    btn_receivepause.Enabled = true;
+            }
         }
 
         /// <summary>
@@ -283,10 +306,12 @@ namespace SCI_9S12
             //retrieve setting
             string Port = comboBox_comport.Text;
             int BaudRate = int.Parse(comboBox_baudrate.Text);
+            //Parity DataParity = (Parity)int.Parse();Parity.
 
             //build connection and open
+            //_newSerialPort = new SerialPort(Port, BaudRate, Parity.None, 8, StopBits.One);
             _newSerialPort = new SerialPort(Port, BaudRate);
-
+            //_newSerialPort = new SerialPort(Port, BaudRate, Parity.None, 8, StopBits.One);
             //handle exception
             try
             {
@@ -345,15 +370,16 @@ namespace SCI_9S12
 
                 //reset the indicators
                 progressBar_connection.Value = 0;
-                progressBar_receiving.Value = 0;
+                progressBar_saving.Value = 0;
                 progressBar_savetotxt.Value = 0;
                 progressBar_savetomysql.Value = 0;
                 progressBar_uploading.Value = 0;
 
                 //saving data control
-                IsCaptureData = false;
-                btn_receivepause.Text = "Start/Pause";
-                btn_receivepause.Enabled = false;
+                //IsCaptureData = false;
+                //btn_receivepause.Text = "Start/Pause";
+                //btn_receivepause.Enabled = false;
+                Reset_btn_receivepause();
             }
         }
 
@@ -365,9 +391,14 @@ namespace SCI_9S12
             //clear the example
             if (comboBox_dataseparator.SelectedIndex == 0)
             {
+                menu_file_savetomysql.Checked = false;    //if no valid data separator, stop upload to mysql
+                progressBar_savetomysql.Value = 0;
                 txt_dataexample.Text = "";
                 return;
             }
+
+            menu_file_savetomysql.Checked = true;      //save to mysql option enable 
+            progressBar_savetomysql.Value = 100;
 
             //show data example
             string Separator = comboBox_dataseparator.Text;
@@ -377,7 +408,10 @@ namespace SCI_9S12
 
             //enable saving data button if connection created
             if (_newSerialPort != null && _newSerialPort.IsOpen)
-                btn_receivepause.Enabled = true;
+            {
+                btn_receivepause.Enabled = true; 
+            }
+
 
         }
 
@@ -391,8 +425,9 @@ namespace SCI_9S12
             {
                 IsCaptureData = false;
                 btn_receivepause.Text = "Pausing...";
-                progressBar_receiving.Value = 0;
+                progressBar_saving.Value = 0;
                 progressBar_uploading.Value = 0;
+                btn_refreshcom.Enabled = true;
 
                 //data control option if select to save to mysql
                 if (menu_file_savetomysql.Checked && _dbInfo.FieldCount != 1)
@@ -404,6 +439,7 @@ namespace SCI_9S12
             {
                 IsCaptureData = true;
                 btn_receivepause.Text = "Running...";
+                btn_refreshcom.Enabled = false;
 
                 //data control option if select to save to mysql
                 if (menu_file_savetomysql.Checked)
@@ -486,6 +522,20 @@ namespace SCI_9S12
 
         }
 
+        /// <summary>
+        /// Reset the operation button when disconnecting the port, having errors on saving data
+        /// </summary>
+        private void Reset_btn_receivepause()
+        {
+            //actions
+            IsCaptureData = false;                     //flag set to false
+            btn_receivepause.Text = "Start/Pause";     //reset text
+            btn_receivepause.Enabled = false;          //disable the button
+
+
+        }
+
+
         #endregion
 
 
@@ -511,5 +561,6 @@ namespace SCI_9S12
         }
 
         #endregion
+
     }
 }

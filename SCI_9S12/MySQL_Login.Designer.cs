@@ -36,6 +36,7 @@ namespace SCI_9S12
             this.menu_help = new System.Windows.Forms.ToolStripMenuItem();
             this.menu_exit = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_notearea = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,13 +60,12 @@ namespace SCI_9S12
             this.lbl_selectfields = new System.Windows.Forms.Label();
             this.lbl_tables = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox_confirmtosubmitquery = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txt_insertquery = new System.Windows.Forms.TextBox();
             this.btn_finish = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.checkBox_confirmtosubmitquery = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip_menu.SuspendLayout();
             this.groupBox_notearea.SuspendLayout();
             this.groupBox_insertarea.SuspendLayout();
@@ -135,6 +135,16 @@ namespace SCI_9S12
             this.groupBox_notearea.TabIndex = 14;
             this.groupBox_notearea.TabStop = false;
             this.groupBox_notearea.Text = "MySQL Setting";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 35);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(239, 16);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "* Press \"Finish\" to confirm the MySQL Setup";
             // 
             // label3
             // 
@@ -330,7 +340,7 @@ namespace SCI_9S12
             this.checkedListBox_selectfields.FormattingEnabled = true;
             this.checkedListBox_selectfields.Location = new System.Drawing.Point(16, 83);
             this.checkedListBox_selectfields.Name = "checkedListBox_selectfields";
-            this.checkedListBox_selectfields.Size = new System.Drawing.Size(229, 109);
+            this.checkedListBox_selectfields.Size = new System.Drawing.Size(229, 104);
             this.checkedListBox_selectfields.TabIndex = 26;
             // 
             // comboBox_tables
@@ -381,6 +391,27 @@ namespace SCI_9S12
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Query";
             // 
+            // checkBox_confirmtosubmitquery
+            // 
+            this.checkBox_confirmtosubmitquery.AutoSize = true;
+            this.checkBox_confirmtosubmitquery.ForeColor = System.Drawing.Color.Crimson;
+            this.checkBox_confirmtosubmitquery.Location = new System.Drawing.Point(6, 160);
+            this.checkBox_confirmtosubmitquery.Name = "checkBox_confirmtosubmitquery";
+            this.checkBox_confirmtosubmitquery.Size = new System.Drawing.Size(158, 17);
+            this.checkBox_confirmtosubmitquery.TabIndex = 32;
+            this.checkBox_confirmtosubmitquery.Text = "Confirm to submit query";
+            this.checkBox_confirmtosubmitquery.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(7, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(160, 16);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "* Confirm the query to finish ";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -420,37 +451,6 @@ namespace SCI_9S12
             this.label5.Size = new System.Drawing.Size(94, 19);
             this.label5.TabIndex = 12;
             this.label5.Text = "Insert Query:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 35);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(239, 16);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "* Press \"Finish\" to confirm the MySQL Setup";
-            // 
-            // checkBox_confirmtosubmitquery
-            // 
-            this.checkBox_confirmtosubmitquery.AutoSize = true;
-            this.checkBox_confirmtosubmitquery.ForeColor = System.Drawing.Color.Crimson;
-            this.checkBox_confirmtosubmitquery.Location = new System.Drawing.Point(6, 160);
-            this.checkBox_confirmtosubmitquery.Name = "checkBox_confirmtosubmitquery";
-            this.checkBox_confirmtosubmitquery.Size = new System.Drawing.Size(158, 17);
-            this.checkBox_confirmtosubmitquery.TabIndex = 32;
-            this.checkBox_confirmtosubmitquery.Text = "Confirm to submit query";
-            this.checkBox_confirmtosubmitquery.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(7, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 16);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "* Confirm the query to finish ";
             // 
             // MySQL_Login
             // 
