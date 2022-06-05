@@ -107,6 +107,18 @@
     <Compile Include="Monitor.Designer.cs">
       <DependentUpon>Monitor.cs</DependentUpon>
     </Compile>
+    <Compile Include="MonitorChildForms\Monitor_Config.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonitorChildForms\Monitor_Config.Designer.cs">
+      <DependentUpon>Monitor_Config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonitorChildForms\Monitor_Data.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonitorChildForms\Monitor_Data.Designer.cs">
+      <DependentUpon>Monitor_Data.cs</DependentUpon>
+    </Compile>
     <Compile Include="MySQL_Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +135,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Monitor.resx">
       <DependentUpon>Monitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonitorChildForms\Monitor_Config.resx">
+      <DependentUpon>Monitor_Config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonitorChildForms\Monitor_Data.resx">
+      <DependentUpon>Monitor_Data.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MySQL_Login.resx">
       <DependentUpon>MySQL_Login.cs</DependentUpon>

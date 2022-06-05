@@ -14,23 +14,103 @@ namespace SCI_9S12
 {
     public partial class Monitor : Form
     {
-        public Monitor()
+        #region declaration
+        Button ActivedButton = null;
+        Form ActivedForm = null;
+        Main MainForm = null;
+        #endregion
+
+
+        public Monitor(Main main)
         {
             InitializeComponent();
 
-            #region Event
+            MainForm = main;
 
+            #region Event
+            Load += Monitor_Load;
             menu_exit.Click += Menu_exit_Click;
             menuStrip_menu.MouseDown += MenuStrip_menu_MouseDown1;
+            btn_data.Click += Btn_data_Click;
+            btn_config.Click += Btn_config_Click;
+
+
             #endregion
         }
 
 
+        #region Event handlers
+
+        private void Monitor_Load(object sender, EventArgs e)
+        {
+            ActiveSectionButton(btn_data);
+            ActiveSectionPanel(new MonitorChildForms.Monitor_Data());
+        }
+
+        private void Btn_data_Click(object sender, EventArgs e)
+        {
+            ActiveSectionButton(btn_data);
+            ActiveSectionPanel(new MonitorChildForms.Monitor_Data());
+        }
+
+        private void Btn_config_Click(object sender, EventArgs e)
+        {
+            ActiveSectionButton(btn_config);
+            ActiveSectionPanel(new MonitorChildForms.Monitor_Config(MainForm));
+        }
 
         private void Menu_exit_Click(object sender, EventArgs e)
         {
+            MainForm.Monitor_Page = null;
             Close();
         }
+
+
+        #endregion
+
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Active the current button and deacive the pervious button 
+        /// </summary>
+        /// <param name="sectionbutton">Current section button</param>
+        private void ActiveSectionButton(Button sectionbutton)
+        {
+            DactiveSectionButton(ActivedButton);
+            ActivedButton = sectionbutton;
+            ActivedButton.BackColor = SystemColors.Highlight;
+        }
+
+        private void DactiveSectionButton(Button sectionbutton)
+        {
+            if (sectionbutton != null)
+                sectionbutton.BackColor = SystemColors.AppWorkspace;
+        }
+
+        /// <summary>
+        /// Display the actived form on section panel
+        /// </summary>
+        /// <param name="monitor_childform">Traget child form</param>
+        private void ActiveSectionPanel(Form monitor_childform)
+        {
+            if (ActivedForm != null)
+                ActivedForm.Close();
+
+            ActivedForm = monitor_childform;
+
+            //set the properties of the form
+            ActivedForm.Dock = DockStyle.Fill;                        //fill the whole panel
+            ActivedForm.FormBorderStyle = FormBorderStyle.None;       //make the border invisible
+            ActivedForm.TopLevel = false;
+
+            panel_sections.Controls.Add(ActivedForm);                  //add child form
+            panel_sections.Tag = ActivedForm;
+            ActivedForm.BringToFront();                               //make sure the child form at the front
+            ActivedForm.Show();
+        }
+
+        #endregion
 
         #region UI control
 

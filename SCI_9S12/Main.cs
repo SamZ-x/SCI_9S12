@@ -7,6 +7,7 @@
  *      Jun 02, 2022 add database table, field selection, data separator selection. 
  *                   In SaveToMySQL mode, add data varidation and manipulation. Update UI,and functionality test.
  *      Jun 04, 2022 fix bugs, add monitor function
+ *      Jun 05, 2022 construct monitor function(port config)
  */
 using System;
 using System.Collections.Generic;
@@ -33,10 +34,10 @@ namespace SCI_9S12
         #region Declaration and fields
 
         //port and data
-        SerialPort _newSerialPort = null;
+        public SerialPort _newSerialPort = null;
         string _dataIn = "";
         int _dataCounter = 0;
-        bool IsCaptureData = false;    
+        bool IsCaptureData = false;
 
         //file IO
         StreamWriter _streamWriter = null;
@@ -48,7 +49,7 @@ namespace SCI_9S12
         char _dataSepatator;
 
         //monitor
-        Monitor Monitor_Page = null;
+        public Monitor Monitor_Page = null;
         #endregion
 
 
@@ -69,7 +70,7 @@ namespace SCI_9S12
             menu_comcontrol_disconnect.Click += Menu_comcontrol_disconnect_Click;
             btn_receivepause.Click += Btn_receivepause_Click;
             btn_refreshcom.Click += Btn_refreshcom_Click;
-            
+
             //file events
             menu_file_savetotxt.Click += Menu_file_savetotxt_Click;
             menu_file_savetomysql.Click += Menu_file_savetomysql_Click;
@@ -90,7 +91,10 @@ namespace SCI_9S12
         /// </summary>
         private void Menu_monitor_Click(object sender, EventArgs e)
         {
-            Monitor_Page = new Monitor();
+            if (Monitor_Page != null)
+                return;
+
+            Monitor_Page = new Monitor(this);
             Monitor_Page.Show();
         }
 
@@ -112,7 +116,7 @@ namespace SCI_9S12
             //default seting for serial port
             comboBox_options_parity.SelectedIndex = 0;
             comboBox_options_databits.SelectedIndex = 3;
-            comboBox__options_stopbits.SelectedIndex = 1;
+            comboBox__options_stopbits.SelectedIndex = 0;
 
             //disable data control section
             groupBox_datacontrol.Enabled = false;
@@ -136,13 +140,13 @@ namespace SCI_9S12
         /// </summary>
         private void _newSerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            
+
             //retrieve data from current port
             //_dataIn = _newSerialPort.ReadExisting();
             _dataIn = _newSerialPort.ReadLine();
             //_dataIn = _newSerialPort.ReadTo("T");
             WriteLine(_dataIn);
-            
+
             //discard received data if not intend to save
             if (!IsCaptureData)
             {
@@ -156,7 +160,7 @@ namespace SCI_9S12
             {
                 if (_dbInfo.FieldCount == 1)
                     Query_Parameters = $"'{_dataIn}'";
-                else 
+                else
                 {
                     //create data parameter for query
                     string[] _dataList = _dataIn.Split(_dataSepatator);
@@ -185,7 +189,7 @@ namespace SCI_9S12
             }
 
             //Update UI
-            _dataCounter = _dataCounter == 100 ? 0 : _dataCounter+10;  //Use to indicate receiving data.
+            _dataCounter = _dataCounter == 100 ? 0 : _dataCounter + 10;  //Use to indicate receiving data.
             Invoke(new Action(() => { progressBar_saving.Value = _dataCounter; }));  //indicate receiving data
 
             //Take action
@@ -306,25 +310,25 @@ namespace SCI_9S12
             //retrieve setting
             string Port = comboBox_comport.Text;
             int BaudRate = int.Parse(comboBox_baudrate.Text);
-            //Parity DataParity = (Parity)int.Parse();Parity.
+            Parity DataParity = (Parity)comboBox_options_parity.SelectedIndex;
+            int Databits = int.Parse(comboBox_options_databits.Text);
+            StopBits DataStopBits = (StopBits)(comboBox__options_stopbits.SelectedIndex + 1);
 
             //build connection and open
-            //_newSerialPort = new SerialPort(Port, BaudRate, Parity.None, 8, StopBits.One);
-            _newSerialPort = new SerialPort(Port, BaudRate);
-            //_newSerialPort = new SerialPort(Port, BaudRate, Parity.None, 8, StopBits.One);
+            _newSerialPort = new SerialPort(Port, BaudRate, DataParity, Databits, DataStopBits);
+
             //handle exception
             try
             {
                 //open the current port
                 _newSerialPort.Open();
 
-                //indicator light up if succeed
-                progressBar_connection.Value = 100;
+                //trigger updata event
+                PortStatusUpdate();
 
-                //limit the setting
-                comboBox_comport.Enabled = false;
-                comboBox_baudrate.Enabled = false;
-                menu_comcontrol_connect.Enabled = false;
+                //limit the port related setting
+                PortRelatedContols(false);
+
 
                 //enable saving data button if already select saving option
                 if (menu_file_savetotxt.Checked || (menu_file_savetomysql.Checked && (comboBox_dataseparator.SelectedIndex != 0 || _dbInfo.FieldCount == 1)))
@@ -353,32 +357,26 @@ namespace SCI_9S12
             {
                 //close the current port 
                 _newSerialPort.Close();
-
                 //clear the serial port 
                 _newSerialPort = null;
+                
+                //trigger updata event
+                PortStatusUpdate();
 
-                //enable connect selection 
-                menu_comcontrol_connect.Enabled = true;
-
-                //release the port parameter selection
-                comboBox_comport.Enabled = true;
-                comboBox_baudrate.Enabled = true;
+                //Release the port related setting
+                PortRelatedContols(true);
 
                 //reset the save method to default
                 menu_file_savetotxt.Checked = false;
                 menu_file_savetomysql.Checked = false;
 
                 //reset the indicators
-                progressBar_connection.Value = 0;
                 progressBar_saving.Value = 0;
                 progressBar_savetotxt.Value = 0;
                 progressBar_savetomysql.Value = 0;
                 progressBar_uploading.Value = 0;
 
                 //saving data control
-                //IsCaptureData = false;
-                //btn_receivepause.Text = "Start/Pause";
-                //btn_receivepause.Enabled = false;
                 Reset_btn_receivepause();
             }
         }
@@ -409,7 +407,7 @@ namespace SCI_9S12
             //enable saving data button if connection created
             if (_newSerialPort != null && _newSerialPort.IsOpen)
             {
-                btn_receivepause.Enabled = true; 
+                btn_receivepause.Enabled = true;
             }
 
 
@@ -446,7 +444,21 @@ namespace SCI_9S12
                     comboBox_dataseparator.Enabled = false;
             }
         }
-        
+
+        #endregion
+
+        #region Custom event handler 
+
+        //create a custom delegate
+        public delegate void UpdateDelegate();
+        //declare an event method, return type is custom delegate
+        public event UpdateDelegate UpdatePortconfigEventhandler;
+        //event trigger 
+        protected void PortStatusUpdate()
+        {
+            //Invoke if event has been subscribed, otherwise, return
+            UpdatePortconfigEventhandler?.Invoke();
+        }
         #endregion
 
         #region Helper methods
@@ -531,13 +543,22 @@ namespace SCI_9S12
             IsCaptureData = false;                     //flag set to false
             btn_receivepause.Text = "Start/Pause";     //reset text
             btn_receivepause.Enabled = false;          //disable the button
-
-
         }
 
+        /// <summary>
+        /// Update port related control 
+        /// </summary>
+        /// <param name="status">True indicates port disconnected, false indicates connected</param>
+        private void PortRelatedContols(bool status)
+        {
+            comboBox_comport.Enabled = status;
+            comboBox_baudrate.Enabled = status;
+            menu_comcontrol_connect.Enabled = status;
+            menu_comcontrol_options.Enabled = status;
+            progressBar_connection.Value = status ? 0 : 100;
+        }
 
         #endregion
-
 
         #region UI control
 

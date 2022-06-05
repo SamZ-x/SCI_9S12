@@ -222,7 +222,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_databits,
             this.menu_comcontrol_options_stopbits});
             this.menu_comcontrol_options.Name = "menu_comcontrol_options";
-            this.menu_comcontrol_options.Size = new System.Drawing.Size(154, 22);
+            this.menu_comcontrol_options.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_options.Text = "More Option";
             // 
             // menu_comcontrol_options_parity
@@ -231,7 +231,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_parity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comboBox_options_parity});
             this.menu_comcontrol_options_parity.Name = "menu_comcontrol_options_parity";
-            this.menu_comcontrol_options_parity.Size = new System.Drawing.Size(126, 22);
+            this.menu_comcontrol_options_parity.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_options_parity.Text = "Parity";
             this.menu_comcontrol_options_parity.ToolTipText = "Default Parity None";
             // 
@@ -254,7 +254,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_databits.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comboBox_options_databits});
             this.menu_comcontrol_options_databits.Name = "menu_comcontrol_options_databits";
-            this.menu_comcontrol_options_databits.Size = new System.Drawing.Size(126, 22);
+            this.menu_comcontrol_options_databits.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_options_databits.Text = "DataBits";
             // 
             // comboBox_options_databits
@@ -275,7 +275,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_stopbits.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comboBox__options_stopbits});
             this.menu_comcontrol_options_stopbits.Name = "menu_comcontrol_options_stopbits";
-            this.menu_comcontrol_options_stopbits.Size = new System.Drawing.Size(126, 22);
+            this.menu_comcontrol_options_stopbits.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_options_stopbits.Text = "StopBits";
             // 
             // comboBox__options_stopbits
@@ -284,7 +284,6 @@ namespace SCI_9S12
             this.comboBox__options_stopbits.DropDownWidth = 100;
             this.comboBox__options_stopbits.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox__options_stopbits.Items.AddRange(new object[] {
-            "None",
             "One",
             "Two"});
             this.comboBox__options_stopbits.Name = "comboBox__options_stopbits";
@@ -293,18 +292,18 @@ namespace SCI_9S12
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(151, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // menu_comcontrol_connect
             // 
             this.menu_comcontrol_connect.Name = "menu_comcontrol_connect";
-            this.menu_comcontrol_connect.Size = new System.Drawing.Size(154, 22);
+            this.menu_comcontrol_connect.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_connect.Text = "Connect";
             // 
             // menu_comcontrol_disconnect
             // 
             this.menu_comcontrol_disconnect.Name = "menu_comcontrol_disconnect";
-            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(154, 22);
+            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(180, 22);
             this.menu_comcontrol_disconnect.Text = "Disconnect";
             // 
             // menu_monitor
