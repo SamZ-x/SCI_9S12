@@ -77,7 +77,7 @@ namespace SCI_9S12
             menu_comcontrol_disconnect.Click += Menu_comcontrol_disconnect_Click;
             btn_receivepause.Click += Btn_receivepause_Click;
             btn_refreshcom.Click += Btn_refreshcom_Click;
-            comboBox_readmode.SelectedIndexChanged += ComboBox_readmode_SelectedIndexChanged;
+            comboBox_endmode.SelectedIndexChanged += ComboBox_readmode_SelectedIndexChanged;
 
             //file events
             menu_file_savetotxt.Click += Menu_file_savetotxt_Click;
@@ -113,10 +113,10 @@ namespace SCI_9S12
             comboBox_baudrate.SelectedIndex = 7;
 
             //initialize read mode, set default readline
-            string[] ReadMode = { "Read Line", "Read To" };
-            comboBox_readmode.Items.AddRange(ReadMode);
-            comboBox_readmode.SelectedIndex = 0;
-            txt_readmode_readto.Visible = false;
+            string[] ReadMode = { "New Line", "A Character" };
+            comboBox_endmode.Items.AddRange(ReadMode);
+            comboBox_endmode.SelectedIndex = 0;
+            txt_endmode_readto.Visible = false;
 
             //default seting for serial port
             comboBox_options_parity.SelectedIndex = 0;
@@ -146,7 +146,7 @@ namespace SCI_9S12
         private void ComboBox_readmode_SelectedIndexChanged(object sender, EventArgs e)
         {
             //enable/disable the input for "read to" mode
-            txt_readmode_readto.Visible = comboBox_readmode.SelectedIndex == 1;
+            txt_endmode_readto.Visible = comboBox_endmode.SelectedIndex == 1;
         }
 
         /// <summary>
@@ -161,14 +161,23 @@ namespace SCI_9S12
                 case 0:
                     _dataIn = _newSerialPort.ReadLine();
                     break;
+                //read to specific character                              //Need to fix : how to handle the rest data
                 case 1:
-                    _dataIn = _newSerialPort.ReadTo(ReadTo_Parameter);
+                    try
+                    {
+                        _dataIn = _newSerialPort.ReadTo(ReadTo_Parameter);    
+                    }
+                    catch 
+                    {
+                    }
                     break;
             }
-
-            //retrieve data from current port
-            //_dataIn = _newSerialPort.ReadExisting();
-            WriteLine(_dataIn);
+            //push data into the package data queue (limit 10 data in queue)
+            if (CurrentSerialPortPackage.DataList.Count >= 10)
+                CurrentSerialPortPackage.DataList.RemoveAt(0);
+            
+            CurrentSerialPortPackage.DataList.Add(_dataIn);
+            ReceivedDataUpdate();
 
             //discard received data if not intend to save
             if (!IsCaptureData)
@@ -343,8 +352,8 @@ namespace SCI_9S12
         {
 
             //setting validation
-            if (comboBox_comport.SelectedIndex == -1 || comboBox_baudrate.SelectedIndex == -1 || comboBox_readmode.SelectedIndex == -1
-                || (comboBox_readmode.SelectedIndex == 1 && txt_readmode_readto.Text.Trim() == ""))
+            if (comboBox_comport.SelectedIndex == -1 || comboBox_baudrate.SelectedIndex == -1 || comboBox_endmode.SelectedIndex == -1
+                || (comboBox_endmode.SelectedIndex == 1 && txt_endmode_readto.Text.Trim() == ""))
             {
                 //pop up error message
                 MessageBox.Show("Error: Invalid Serial Port Control setting", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -357,8 +366,8 @@ namespace SCI_9S12
             Parity DataParity = (Parity)comboBox_options_parity.SelectedIndex;
             int Databits = int.Parse(comboBox_options_databits.Text);
             StopBits DataStopBits = (StopBits)(comboBox__options_stopbits.SelectedIndex + 1);
-            ReadMode = comboBox_readmode.SelectedIndex;
-            ReadTo_Parameter = txt_readmode_readto.Text;
+            ReadMode = comboBox_endmode.SelectedIndex;
+            ReadTo_Parameter = txt_endmode_readto.Text;
 
             //build connection and open
             _newSerialPort = new SerialPort(Port, BaudRate, DataParity, Databits, DataStopBits);
@@ -514,7 +523,7 @@ namespace SCI_9S12
         //declare an event method, return type is custom delegate
         public event UpdateDelegate UpdatePortconfigEventhandler;
         public event UpdateDelegate UpdateOutputconfigEventhandler;
-
+        public event UpdateDelegate UpdateReceivedDataEventhandler;
         //event trigger methods
         protected void PortStatusUpdate()
         {
@@ -526,6 +535,11 @@ namespace SCI_9S12
         {
             //Invoke if event has been subscribed, otherwise, return
             UpdateOutputconfigEventhandler?.Invoke();
+        }
+
+        protected void ReceivedDataUpdate()
+        {
+            UpdateReceivedDataEventhandler?.Invoke();
         }
 
         #endregion
@@ -622,8 +636,8 @@ namespace SCI_9S12
         {
             comboBox_comport.Enabled = status;
             comboBox_baudrate.Enabled = status;
-            comboBox_readmode.Enabled = status;
-            txt_readmode_readto.Enabled = status;
+            comboBox_endmode.Enabled = status;
+            txt_endmode_readto.Enabled = status;
             menu_comcontrol_connect.Enabled = status;
             menu_comcontrol_options.Enabled = status;
             progressBar_connection.Value = status ? 0 : 100;
@@ -668,8 +682,14 @@ namespace SCI_9S12
         public bool IsSaveToTXT { get { return _isSaveToTXT; } set { _isSaveToTXT = value; } }
         public string TxtPath = "N/A";
         public bool IsSaveToMySQL;
+        public List<string> DataList;
 
         #endregion
+
+        public SerialPortPackage()
+        {
+            DataList = new List<string>();
+        }
 
     }
 }

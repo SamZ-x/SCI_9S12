@@ -30,7 +30,7 @@ namespace SCI_9S12
         private void InitializeComponent()
         {
             this.gbox_comportcontrol = new System.Windows.Forms.GroupBox();
-            this.comboBox_readmode = new System.Windows.Forms.ComboBox();
+            this.comboBox_endmode = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btn_refreshcom = new System.Windows.Forms.Button();
             this.comboBox_baudrate = new System.Windows.Forms.ComboBox();
@@ -80,7 +80,7 @@ namespace SCI_9S12
             this.lbl_receiving = new System.Windows.Forms.Label();
             this.progressBar_saving = new System.Windows.Forms.ProgressBar();
             this.btn_receivepause = new System.Windows.Forms.Button();
-            this.txt_readmode_readto = new System.Windows.Forms.TextBox();
+            this.txt_endmode_readto = new System.Windows.Forms.TextBox();
             this.gbox_comportcontrol.SuspendLayout();
             this.menuStrip_menu.SuspendLayout();
             this.gbox_stauts.SuspendLayout();
@@ -90,8 +90,8 @@ namespace SCI_9S12
             // 
             // gbox_comportcontrol
             // 
-            this.gbox_comportcontrol.Controls.Add(this.txt_readmode_readto);
-            this.gbox_comportcontrol.Controls.Add(this.comboBox_readmode);
+            this.gbox_comportcontrol.Controls.Add(this.txt_endmode_readto);
+            this.gbox_comportcontrol.Controls.Add(this.comboBox_endmode);
             this.gbox_comportcontrol.Controls.Add(this.label7);
             this.gbox_comportcontrol.Controls.Add(this.btn_refreshcom);
             this.gbox_comportcontrol.Controls.Add(this.comboBox_baudrate);
@@ -106,14 +106,14 @@ namespace SCI_9S12
             this.gbox_comportcontrol.TabStop = false;
             this.gbox_comportcontrol.Text = "COM PORT CONTROL";
             // 
-            // comboBox_readmode
+            // comboBox_endmode
             // 
-            this.comboBox_readmode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_readmode.FormattingEnabled = true;
-            this.comboBox_readmode.Location = new System.Drawing.Point(91, 78);
-            this.comboBox_readmode.Name = "comboBox_readmode";
-            this.comboBox_readmode.Size = new System.Drawing.Size(78, 25);
-            this.comboBox_readmode.TabIndex = 6;
+            this.comboBox_endmode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_endmode.FormattingEnabled = true;
+            this.comboBox_endmode.Location = new System.Drawing.Point(116, 78);
+            this.comboBox_endmode.Name = "comboBox_endmode";
+            this.comboBox_endmode.Size = new System.Drawing.Size(78, 25);
+            this.comboBox_endmode.TabIndex = 6;
             // 
             // label7
             // 
@@ -121,9 +121,9 @@ namespace SCI_9S12
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(5, 82);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 17);
+            this.label7.Size = new System.Drawing.Size(106, 17);
             this.label7.TabIndex = 5;
-            this.label7.Text = "READ MODE:";
+            this.label7.Text = "DATA END WITH:";
             // 
             // btn_refreshcom
             // 
@@ -134,7 +134,7 @@ namespace SCI_9S12
             this.btn_refreshcom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_refreshcom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_refreshcom.Image = global::SCI_9S12.Properties.Resources.refresh_16px;
-            this.btn_refreshcom.Location = new System.Drawing.Point(215, 25);
+            this.btn_refreshcom.Location = new System.Drawing.Point(224, 25);
             this.btn_refreshcom.Name = "btn_refreshcom";
             this.btn_refreshcom.Size = new System.Drawing.Size(22, 22);
             this.btn_refreshcom.TabIndex = 4;
@@ -146,7 +146,7 @@ namespace SCI_9S12
             this.comboBox_baudrate.FormattingEnabled = true;
             this.comboBox_baudrate.Location = new System.Drawing.Point(91, 51);
             this.comboBox_baudrate.Name = "comboBox_baudrate";
-            this.comboBox_baudrate.Size = new System.Drawing.Size(121, 25);
+            this.comboBox_baudrate.Size = new System.Drawing.Size(129, 25);
             this.comboBox_baudrate.TabIndex = 3;
             // 
             // comboBox_comport
@@ -155,7 +155,7 @@ namespace SCI_9S12
             this.comboBox_comport.FormattingEnabled = true;
             this.comboBox_comport.Location = new System.Drawing.Point(91, 24);
             this.comboBox_comport.Name = "comboBox_comport";
-            this.comboBox_comport.Size = new System.Drawing.Size(121, 25);
+            this.comboBox_comport.Size = new System.Drawing.Size(129, 25);
             this.comboBox_comport.TabIndex = 2;
             // 
             // lbl_cpc_baudrate
@@ -602,13 +602,13 @@ namespace SCI_9S12
             this.btn_receivepause.Text = "Start/Pause";
             this.btn_receivepause.UseVisualStyleBackColor = false;
             // 
-            // txt_readmode_readto
+            // txt_endmode_readto
             // 
-            this.txt_readmode_readto.Location = new System.Drawing.Point(175, 78);
-            this.txt_readmode_readto.Name = "txt_readmode_readto";
-            this.txt_readmode_readto.Size = new System.Drawing.Size(37, 25);
-            this.txt_readmode_readto.TabIndex = 7;
-            this.txt_readmode_readto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_endmode_readto.Location = new System.Drawing.Point(200, 78);
+            this.txt_endmode_readto.Name = "txt_endmode_readto";
+            this.txt_endmode_readto.Size = new System.Drawing.Size(20, 25);
+            this.txt_endmode_readto.TabIndex = 7;
+            this.txt_endmode_readto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Main
             // 
@@ -693,9 +693,9 @@ namespace SCI_9S12
         private System.Windows.Forms.ToolStripComboBox comboBox_options_parity;
         private System.Windows.Forms.ToolStripComboBox comboBox__options_stopbits;
         private System.Windows.Forms.ToolStripMenuItem menu_monitor;
-        private System.Windows.Forms.ComboBox comboBox_readmode;
+        private System.Windows.Forms.ComboBox comboBox_endmode;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txt_readmode_readto;
+        private System.Windows.Forms.TextBox txt_endmode_readto;
     }
 }
 

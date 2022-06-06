@@ -56,7 +56,7 @@ namespace SCI_9S12
         {
             Location = new Point(MainForm.Location.X + MainForm.Width + FormGap, MainForm.Location.Y);
             ActiveSectionButton(btn_data);
-            ActiveSectionPanel(new MonitorChildForms.Monitor_Data());
+            ActiveSectionPanel(new MonitorChildForms.Monitor_Data(MainForm));
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace SCI_9S12
         private void Btn_data_Click(object sender, EventArgs e)
         {
             ActiveSectionButton(btn_data);
-            ActiveSectionPanel(new MonitorChildForms.Monitor_Data());
+            ActiveSectionPanel(new MonitorChildForms.Monitor_Data(MainForm));
         }
 
         /// <summary>

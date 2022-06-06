@@ -32,7 +32,7 @@ namespace SCI_9S12.MonitorChildForms
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.lbl_portname = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_livedata = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -42,7 +42,7 @@ namespace SCI_9S12.MonitorChildForms
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(443, 312);
             this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "diaplay the data live";
+            this.richTextBox1.Text = "";
             // 
             // lbl_portname
             // 
@@ -64,12 +64,12 @@ namespace SCI_9S12.MonitorChildForms
             this.label1.TabIndex = 4;
             this.label1.Text = "History Data:";
             // 
-            // textBox1
+            // txt_livedata
             // 
-            this.textBox1.Location = new System.Drawing.Point(16, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(290, 20);
-            this.textBox1.TabIndex = 5;
+            this.txt_livedata.Location = new System.Drawing.Point(16, 44);
+            this.txt_livedata.Name = "txt_livedata";
+            this.txt_livedata.Size = new System.Drawing.Size(290, 20);
+            this.txt_livedata.TabIndex = 5;
             // 
             // Monitor_Data
             // 
@@ -78,7 +78,7 @@ namespace SCI_9S12.MonitorChildForms
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 400);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_livedata);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_portname);
             this.Controls.Add(this.richTextBox1);
@@ -95,6 +95,6 @@ namespace SCI_9S12.MonitorChildForms
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label lbl_portname;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_livedata;
     }
 }
