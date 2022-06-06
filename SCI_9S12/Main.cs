@@ -7,7 +7,8 @@
  *      Jun 02, 2022 add database table, field selection, data separator selection. 
  *                   In SaveToMySQL mode, add data varidation and manipulation. Update UI,and functionality test.
  *      Jun 04, 2022 fix bugs, add monitor function
- *      Jun 05, 2022 construct monitor function(port config)
+ *      Jun 05, 2022 construct monitor function(port config, data monitor)
+ *      Jun 06, 2022 fix monitor functions
  */
 using System;
 using System.Collections.Generic;
@@ -113,7 +114,7 @@ namespace SCI_9S12
             comboBox_baudrate.SelectedIndex = 7;
 
             //initialize read mode, set default readline
-            string[] ReadMode = { "New Line", "A Character" };
+            string[] ReadMode = { "New Line" };
             comboBox_endmode.Items.AddRange(ReadMode);
             comboBox_endmode.SelectedIndex = 0;
             txt_endmode_readto.Visible = false;
@@ -126,6 +127,7 @@ namespace SCI_9S12
             //disable data control section
             groupBox_datacontrol.Enabled = false;
             btn_receivepause.Enabled = false;
+
         }
 
         /// <summary>
@@ -167,13 +169,14 @@ namespace SCI_9S12
                     {
                         _dataIn = _newSerialPort.ReadTo(ReadTo_Parameter);    
                     }
-                    catch 
+                    catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message);
                     }
                     break;
             }
             //push data into the package data queue (limit 10 data in queue)
-            if (CurrentSerialPortPackage.DataList.Count >= 10)
+            if (CurrentSerialPortPackage.DataList.Count >= 20)
                 CurrentSerialPortPackage.DataList.RemoveAt(0);
             
             CurrentSerialPortPackage.DataList.Add(_dataIn);
@@ -319,6 +322,7 @@ namespace SCI_9S12
                 menu_file_savetomysql.Checked = true;
                 comboBox_dataseparator.Enabled = false;
                 txt_dataexample.Text = _dbInfo.FieldsOfDatabase;
+                progressBar_savetomysql.Value = 100;
 
                 //also check the connection. if connected, enable receivepause button
                 if (_newSerialPort != null && _newSerialPort.IsOpen)
@@ -408,6 +412,9 @@ namespace SCI_9S12
             //exit, if serialport instance does not exists
             if (_newSerialPort == null)
                 return;
+
+            if (Monitor_Page != null)
+                Monitor_Page.Close();
 
             if (_newSerialPort.IsOpen)
             {
@@ -677,12 +684,13 @@ namespace SCI_9S12
     {
         #region fields
 
-        public SerialPort _SerialPort;
-        private bool _isSaveToTXT;
-        public bool IsSaveToTXT { get { return _isSaveToTXT; } set { _isSaveToTXT = value; } }
-        public string TxtPath = "N/A";
-        public bool IsSaveToMySQL;
-        public List<string> DataList;
+        public SerialPort _SerialPort;      //store the serial port instance
+        
+        public bool IsSaveToTXT;            //save to txt status
+        public string TxtPath = "N/A";      //txt full path
+        
+        public bool IsSaveToMySQL;          //save to mysql status
+        public List<string> DataList;       //buffer 20 piece data
 
         #endregion
 

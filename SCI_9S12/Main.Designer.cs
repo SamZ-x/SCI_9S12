@@ -686,7 +686,6 @@ namespace SCI_9S12
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options_databits;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripComboBox comboBox_options_databits;
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options_stopbits;
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options_parity;

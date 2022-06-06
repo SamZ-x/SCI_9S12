@@ -60,9 +60,8 @@ namespace SCI_9S12.MonitorChildForms
             UpdatePortConfig();
         }
 
-
-
         #endregion
+
         #region Helper Methods
 
         /// <summary>
@@ -70,6 +69,7 @@ namespace SCI_9S12.MonitorChildForms
         /// </summary>
         private void UpdatePortConfig()
         {
+            //port parameter values
             if (MainForm.CurrentSerialPortPackage._SerialPort != null && MainForm.CurrentSerialPortPackage._SerialPort.IsOpen)
             {
                 lbl_portname_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.PortName;
@@ -77,7 +77,8 @@ namespace SCI_9S12.MonitorChildForms
                 lbl_databits_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.DataBits.ToString();
                 lbl_parity_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.Parity.ToString();
                 lbl_stopbits_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.StopBits.ToString();
-                lbl_status_value.Text =  "Connected";
+                lbl_portstatus_light.BackColor = Color.Green;
+                lbl_portstatus_value.Text =  "Connected";
             }
             else 
             {
@@ -86,7 +87,8 @@ namespace SCI_9S12.MonitorChildForms
                 lbl_databits_value.Text = "N/A";
                 lbl_parity_value.Text = "N/A";
                 lbl_stopbits_value.Text = "N/A";
-                lbl_status_value.Text = "Disconnected";
+                lbl_portstatus_value.Text = "Disconnected";
+                lbl_portstatus_light.BackColor = Color.Gray;
             }
         }
 
@@ -95,9 +97,16 @@ namespace SCI_9S12.MonitorChildForms
         /// </summary>
         private void UpdateOutputConfig()
         {
+            //update status
+            bool OutputEnable = MainForm.CurrentSerialPortPackage.IsSaveToTXT || MainForm.CurrentSerialPortPackage.IsSaveToMySQL;
+            lbl_outputstatus_value.Text = OutputEnable ? "On" : "OFF";
+            lbl_outputstatus_light.BackColor = OutputEnable ? Color.Green : Color.Gray;
+
+            //SaveToTXT status
             lbl_savetotxt_value.Text = MainForm.CurrentSerialPortPackage.IsSaveToTXT ? "Enable" : "Disable";
             lbl_path_value.Text = MainForm.CurrentSerialPortPackage.TxtPath;
 
+            //SaveToMySQL status
             lbl_savetomysql_value.Text = MainForm.CurrentSerialPortPackage.IsSaveToMySQL ? "Enable" : "Disable";
         }
 
