@@ -58,7 +58,7 @@ namespace SCI_9S12.MonitorChildForms
             // txt_livedata
             // 
             this.txt_livedata.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_livedata.Location = new System.Drawing.Point(16, 44);
+            this.txt_livedata.Location = new System.Drawing.Point(12, 44);
             this.txt_livedata.Name = "txt_livedata";
             this.txt_livedata.ReadOnly = true;
             this.txt_livedata.Size = new System.Drawing.Size(290, 25);

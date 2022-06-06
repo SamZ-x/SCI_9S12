@@ -47,7 +47,8 @@ namespace SCI_9S12.MonitorChildForms
         /// </summary>
         private void MainForm_UpdateReceivedDataEventhandler()
         {
-            UpdateReceivedData();
+            if (MainForm.CurrentSerialPortPackage._SerialPort.IsOpen)
+                UpdateReceivedData();
         }
 
         #endregion

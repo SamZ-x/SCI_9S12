@@ -413,8 +413,8 @@ namespace SCI_9S12
             if (_newSerialPort == null)
                 return;
 
-            if (Monitor_Page != null)
-                Monitor_Page.Close();
+            //if (Monitor_Page != null)
+            //    Monitor_Page.Close();
 
             if (_newSerialPort.IsOpen)
             {
