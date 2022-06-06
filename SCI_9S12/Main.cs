@@ -33,11 +33,14 @@ namespace SCI_9S12
     {
         #region Declaration and fields
 
-        //port and data
-        public SerialPort _newSerialPort = null;
+        //port and data        
+        SerialPort _newSerialPort = null;
         string _dataIn = "";
         int _dataCounter = 0;
         bool IsCaptureData = false;
+
+        //Use to carry all the Info about the current serial port
+        public SerialPortPackage CurrentSerialPortPackage =  new SerialPortPackage();
 
         //file IO
         StreamWriter _streamWriter = null;
@@ -52,7 +55,9 @@ namespace SCI_9S12
         public Monitor Monitor_Page = null;
         #endregion
 
-
+        /// <summary>
+        /// Create Main form instance
+        /// </summary>
         public Main()
         {
             InitializeComponent();
@@ -73,7 +78,9 @@ namespace SCI_9S12
 
             //file events
             menu_file_savetotxt.Click += Menu_file_savetotxt_Click;
+            menu_file_savetotxt.CheckStateChanged += Menu_file_savetotxt_CheckStateChanged;
             menu_file_savetomysql.Click += Menu_file_savetomysql_Click;
+            menu_file_savetomysql.CheckStateChanged += Menu_file_savetomysql_CheckStateChanged;
             menu_file_close.Click += (sender, e) => { Application.Exit(); };       //close APP
             menu_about.Click += (sender, e) => { new Help_Page().ShowDialog(); };  //show the help doc
             menuStrip_menu.MouseDown += MenuStrip_menu_MouseDown;
@@ -84,20 +91,8 @@ namespace SCI_9S12
             #endregion
 
         }
+
         #region Event handlers
-
-        /// <summary>
-        /// Open live monitor page
-        /// </summary>
-        private void Menu_monitor_Click(object sender, EventArgs e)
-        {
-            if (Monitor_Page != null)
-                return;
-
-            Monitor_Page = new Monitor(this);
-            Monitor_Page.Show();
-        }
-
         /// <summary>
         /// Initialize UI when load the form
         /// </summary>
@@ -120,7 +115,7 @@ namespace SCI_9S12
 
             //disable data control section
             groupBox_datacontrol.Enabled = false;
-            btn_receivepause.Enabled = false;
+            btn_receivepause.Enabled = false;            
         }
 
         /// <summary>
@@ -207,6 +202,7 @@ namespace SCI_9S12
             if (menu_file_savetotxt.Checked)
             {
                 //reset UI and return
+                FullFilePath = "N/A";
                 menu_file_savetotxt.Checked = false;
                 progressBar_savetotxt.Value = 0;
 
@@ -294,6 +290,27 @@ namespace SCI_9S12
         }
 
         /// <summary>
+        /// Update the CurrentSerialPortPackage information of SaveToTxt option 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Menu_file_savetotxt_CheckStateChanged(object sender, EventArgs e)
+        {
+            CurrentSerialPortPackage.IsSaveToTXT = menu_file_savetotxt.Checked;
+            CurrentSerialPortPackage.TxtPath = FullFilePath;
+            OutputConfigStatusUpdate();
+        }
+
+        /// <summary>
+        /// Update the CurrentSerialPortPackage information  of SaveToMySQL option 
+        /// </summary>
+        private void Menu_file_savetomysql_CheckStateChanged(object sender, EventArgs e)
+        {
+            CurrentSerialPortPackage.IsSaveToMySQL = menu_file_savetomysql.Checked;
+            OutputConfigStatusUpdate();
+        }
+
+        /// <summary>
         /// Create serial port connection 
         /// </summary>
         private void Menu_comcontrol_connect_Click(object sender, EventArgs e)
@@ -316,16 +333,17 @@ namespace SCI_9S12
 
             //build connection and open
             _newSerialPort = new SerialPort(Port, BaudRate, DataParity, Databits, DataStopBits);
-
+   
             //handle exception
             try
             {
                 //open the current port
                 _newSerialPort.Open();
 
+                //assigned the valid port to the serial port package fields
+                CurrentSerialPortPackage._SerialPort = _newSerialPort;
                 //trigger updata event
                 PortStatusUpdate();
-
                 //limit the port related setting
                 PortRelatedContols(false);
 
@@ -445,6 +463,19 @@ namespace SCI_9S12
             }
         }
 
+        /// <summary>
+        /// Open live monitor page
+        /// </summary>
+        private void Menu_monitor_Click(object sender, EventArgs e)
+        {
+            if (Monitor_Page != null)
+                return;
+
+            Monitor_Page = new Monitor(this);
+            Monitor_Page.Show();
+        }
+
+
         #endregion
 
         #region Custom event handler 
@@ -453,12 +484,21 @@ namespace SCI_9S12
         public delegate void UpdateDelegate();
         //declare an event method, return type is custom delegate
         public event UpdateDelegate UpdatePortconfigEventhandler;
-        //event trigger 
+        public event UpdateDelegate UpdateOutputconfigEventhandler;
+        
+        //event trigger methods
         protected void PortStatusUpdate()
         {
             //Invoke if event has been subscribed, otherwise, return
             UpdatePortconfigEventhandler?.Invoke();
         }
+
+        protected void OutputConfigStatusUpdate()
+        {
+            //Invoke if event has been subscribed, otherwise, return
+            UpdateOutputconfigEventhandler?.Invoke();
+        }
+
         #endregion
 
         #region Helper methods
@@ -584,4 +624,23 @@ namespace SCI_9S12
         #endregion
 
     }
+
+    /// <summary>
+    /// Create a SerialPortPackage class to store the related information/object
+    /// </summary>
+    public class SerialPortPackage
+    {
+        #region fields
+
+        public SerialPort _SerialPort;
+        private bool _isSaveToTXT;
+        public bool IsSaveToTXT { get { return _isSaveToTXT; } set { _isSaveToTXT = value; } }
+        public string TxtPath = "N/A";
+        public bool IsSaveToMySQL;
+
+        #endregion
+
+    }
 }
+
+

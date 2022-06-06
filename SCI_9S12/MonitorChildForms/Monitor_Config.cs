@@ -8,15 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.IO.Ports;
 
 namespace SCI_9S12.MonitorChildForms
 {
     public partial class Monitor_Config : Form
     {
         #region Declaration
+        
         Main MainForm;
-        SerialPort ActivedPort;
 
         #endregion
 
@@ -30,30 +29,54 @@ namespace SCI_9S12.MonitorChildForms
             #region Events
             Load += Monitor_Config_Load;
             MainForm.UpdatePortconfigEventhandler += MainForm_UpdatePortconfigEventhandler;
+            MainForm.UpdateOutputconfigEventhandler += MainForm_UpdateOutputconfigEventhandler;
             #endregion
         }
+
         #region Event handlers
 
+        /// <summary>
+        /// Initial the sections
+        /// </summary>
+        private void Monitor_Config_Load(object sender, EventArgs e)
+        {
+            UpdatePortConfig();
+            UpdateOutputConfig();
+        }
+
+        /// <summary>
+        /// Update the output config when change the selection of saving
+        /// </summary>
+        private void MainForm_UpdateOutputconfigEventhandler()
+        {
+            UpdateOutputConfig();
+        }
+
+        /// <summary>
+        /// Update the port config when change the status of port
+        /// </summary>
         private void MainForm_UpdatePortconfigEventhandler()
         {
             UpdatePortConfig();
         }
 
 
-        private void Monitor_Config_Load(object sender, EventArgs e)
-        {
-                UpdatePortConfig();
-        }
 
+        #endregion
+        #region Helper Methods
+
+        /// <summary>
+        /// Update the value of port paramters
+        /// </summary>
         private void UpdatePortConfig()
         {
-            if (MainForm._newSerialPort != null && MainForm._newSerialPort.IsOpen)
+            if (MainForm.CurrentSerialPortPackage._SerialPort != null && MainForm.CurrentSerialPortPackage._SerialPort.IsOpen)
             {
-                lbl_portname_value.Text = MainForm._newSerialPort.PortName;
-                lbl_baudrate_value.Text = MainForm._newSerialPort.BaudRate.ToString();
-                lbl_databits_value.Text = MainForm._newSerialPort.DataBits.ToString();
-                lbl_parity_value.Text = MainForm._newSerialPort.Parity.ToString();
-                lbl_stopbits_value.Text = MainForm._newSerialPort.StopBits.ToString();
+                lbl_portname_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.PortName;
+                lbl_baudrate_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.BaudRate.ToString();
+                lbl_databits_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.DataBits.ToString();
+                lbl_parity_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.Parity.ToString();
+                lbl_stopbits_value.Text = MainForm.CurrentSerialPortPackage._SerialPort.StopBits.ToString();
                 lbl_status_value.Text =  "Connected";
             }
             else 
@@ -66,6 +89,18 @@ namespace SCI_9S12.MonitorChildForms
                 lbl_status_value.Text = "Disconnected";
             }
         }
+
+        /// <summary>
+        /// Update the value of output configure
+        /// </summary>
+        private void UpdateOutputConfig()
+        {
+            lbl_savetotxt_value.Text = MainForm.CurrentSerialPortPackage.IsSaveToTXT ? "Enable" : "Disable";
+            lbl_path_value.Text = MainForm.CurrentSerialPortPackage.TxtPath;
+
+            lbl_savetomysql_value.Text = MainForm.CurrentSerialPortPackage.IsSaveToMySQL ? "Enable" : "Disable";
+        }
+
         #endregion
     }
 }

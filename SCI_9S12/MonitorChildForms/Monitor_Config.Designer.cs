@@ -30,20 +30,27 @@ namespace SCI_9S12.MonitorChildForms
         private void InitializeComponent()
         {
             this.groupBox_portconfig = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lbl_portname = new System.Windows.Forms.Label();
-            this.lbl_baudrate = new System.Windows.Forms.Label();
-            this.lbl_parity = new System.Windows.Forms.Label();
-            this.lbl_databits = new System.Windows.Forms.Label();
-            this.lbl_stopbits = new System.Windows.Forms.Label();
-            this.lbl_status = new System.Windows.Forms.Label();
-            this.lbl_portname_value = new System.Windows.Forms.Label();
-            this.lbl_parity_value = new System.Windows.Forms.Label();
-            this.lbl_stopbits_value = new System.Windows.Forms.Label();
-            this.lbl_baudrate_value = new System.Windows.Forms.Label();
-            this.lbl_status_value = new System.Windows.Forms.Label();
             this.lbl_databits_value = new System.Windows.Forms.Label();
+            this.lbl_status_value = new System.Windows.Forms.Label();
+            this.lbl_baudrate_value = new System.Windows.Forms.Label();
+            this.lbl_stopbits_value = new System.Windows.Forms.Label();
+            this.lbl_parity_value = new System.Windows.Forms.Label();
+            this.lbl_portname_value = new System.Windows.Forms.Label();
+            this.lbl_status = new System.Windows.Forms.Label();
+            this.lbl_stopbits = new System.Windows.Forms.Label();
+            this.lbl_databits = new System.Windows.Forms.Label();
+            this.lbl_parity = new System.Windows.Forms.Label();
+            this.lbl_baudrate = new System.Windows.Forms.Label();
+            this.lbl_portname = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbl_savetotxt = new System.Windows.Forms.Label();
+            this.lbl_savetotxt_value = new System.Windows.Forms.Label();
+            this.lbl_path = new System.Windows.Forms.Label();
+            this.lbl_path_value = new System.Windows.Forms.Label();
+            this.lbl_savetomysql_value = new System.Windows.Forms.Label();
+            this.lbl_savetomysql = new System.Windows.Forms.Label();
             this.groupBox_portconfig.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox_portconfig
@@ -69,56 +76,75 @@ namespace SCI_9S12.MonitorChildForms
             this.groupBox_portconfig.TabStop = false;
             this.groupBox_portconfig.Text = "Port Configure";
             // 
-            // groupBox2
+            // lbl_databits_value
             // 
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(0, 114);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(800, 127);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Output Configure";
+            this.lbl_databits_value.AutoSize = true;
+            this.lbl_databits_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_databits_value.Location = new System.Drawing.Point(575, 51);
+            this.lbl_databits_value.Name = "lbl_databits_value";
+            this.lbl_databits_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_databits_value.TabIndex = 11;
+            this.lbl_databits_value.Text = "Value";
             // 
-            // lbl_portname
+            // lbl_status_value
             // 
-            this.lbl_portname.AutoSize = true;
-            this.lbl_portname.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_portname.Location = new System.Drawing.Point(6, 25);
-            this.lbl_portname.Name = "lbl_portname";
-            this.lbl_portname.Size = new System.Drawing.Size(87, 21);
-            this.lbl_portname.TabIndex = 0;
-            this.lbl_portname.Text = "Port Name:";
+            this.lbl_status_value.AutoSize = true;
+            this.lbl_status_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_status_value.Location = new System.Drawing.Point(345, 77);
+            this.lbl_status_value.Name = "lbl_status_value";
+            this.lbl_status_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_status_value.TabIndex = 10;
+            this.lbl_status_value.Text = "Value";
             // 
-            // lbl_baudrate
+            // lbl_baudrate_value
             // 
-            this.lbl_baudrate.AutoSize = true;
-            this.lbl_baudrate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_baudrate.Location = new System.Drawing.Point(247, 51);
-            this.lbl_baudrate.Name = "lbl_baudrate";
-            this.lbl_baudrate.Size = new System.Drawing.Size(83, 21);
-            this.lbl_baudrate.TabIndex = 1;
-            this.lbl_baudrate.Text = "Baud Rate:";
+            this.lbl_baudrate_value.AutoSize = true;
+            this.lbl_baudrate_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_baudrate_value.Location = new System.Drawing.Point(345, 51);
+            this.lbl_baudrate_value.Name = "lbl_baudrate_value";
+            this.lbl_baudrate_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_baudrate_value.TabIndex = 9;
+            this.lbl_baudrate_value.Text = "Value";
             // 
-            // lbl_parity
+            // lbl_stopbits_value
             // 
-            this.lbl_parity.AutoSize = true;
-            this.lbl_parity.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_parity.Location = new System.Drawing.Point(6, 51);
-            this.lbl_parity.Name = "lbl_parity";
-            this.lbl_parity.Size = new System.Drawing.Size(52, 21);
-            this.lbl_parity.TabIndex = 2;
-            this.lbl_parity.Text = "Parity:";
+            this.lbl_stopbits_value.AutoSize = true;
+            this.lbl_stopbits_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_stopbits_value.Location = new System.Drawing.Point(109, 77);
+            this.lbl_stopbits_value.Name = "lbl_stopbits_value";
+            this.lbl_stopbits_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_stopbits_value.TabIndex = 8;
+            this.lbl_stopbits_value.Text = "Value";
             // 
-            // lbl_databits
+            // lbl_parity_value
             // 
-            this.lbl_databits.AutoSize = true;
-            this.lbl_databits.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_databits.Location = new System.Drawing.Point(519, 51);
-            this.lbl_databits.Name = "lbl_databits";
-            this.lbl_databits.Size = new System.Drawing.Size(70, 21);
-            this.lbl_databits.TabIndex = 3;
-            this.lbl_databits.Text = "DataBits:";
+            this.lbl_parity_value.AutoSize = true;
+            this.lbl_parity_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_parity_value.Location = new System.Drawing.Point(109, 51);
+            this.lbl_parity_value.Name = "lbl_parity_value";
+            this.lbl_parity_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_parity_value.TabIndex = 7;
+            this.lbl_parity_value.Text = "Value";
+            // 
+            // lbl_portname_value
+            // 
+            this.lbl_portname_value.AutoSize = true;
+            this.lbl_portname_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_portname_value.Location = new System.Drawing.Point(109, 25);
+            this.lbl_portname_value.Name = "lbl_portname_value";
+            this.lbl_portname_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_portname_value.TabIndex = 6;
+            this.lbl_portname_value.Text = "Value";
+            // 
+            // lbl_status
+            // 
+            this.lbl_status.AutoSize = true;
+            this.lbl_status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_status.Location = new System.Drawing.Point(247, 77);
+            this.lbl_status.Name = "lbl_status";
+            this.lbl_status.Size = new System.Drawing.Size(55, 21);
+            this.lbl_status.TabIndex = 5;
+            this.lbl_status.Text = "Status:";
             // 
             // lbl_stopbits
             // 
@@ -130,75 +156,122 @@ namespace SCI_9S12.MonitorChildForms
             this.lbl_stopbits.TabIndex = 4;
             this.lbl_stopbits.Text = "StopBits:";
             // 
-            // lbl_status
+            // lbl_databits
             // 
-            this.lbl_status.AutoSize = true;
-            this.lbl_status.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_status.Location = new System.Drawing.Point(252, 77);
-            this.lbl_status.Name = "lbl_status";
-            this.lbl_status.Size = new System.Drawing.Size(55, 21);
-            this.lbl_status.TabIndex = 5;
-            this.lbl_status.Text = "Status:";
+            this.lbl_databits.AutoSize = true;
+            this.lbl_databits.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_databits.Location = new System.Drawing.Point(499, 51);
+            this.lbl_databits.Name = "lbl_databits";
+            this.lbl_databits.Size = new System.Drawing.Size(70, 21);
+            this.lbl_databits.TabIndex = 3;
+            this.lbl_databits.Text = "DataBits:";
             // 
-            // lbl_portname_value
+            // lbl_parity
             // 
-            this.lbl_portname_value.AutoSize = true;
-            this.lbl_portname_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_portname_value.Location = new System.Drawing.Point(109, 25);
-            this.lbl_portname_value.Name = "lbl_portname_value";
-            this.lbl_portname_value.Size = new System.Drawing.Size(52, 21);
-            this.lbl_portname_value.TabIndex = 6;
-            this.lbl_portname_value.Text = "Parity:";
+            this.lbl_parity.AutoSize = true;
+            this.lbl_parity.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_parity.Location = new System.Drawing.Point(6, 51);
+            this.lbl_parity.Name = "lbl_parity";
+            this.lbl_parity.Size = new System.Drawing.Size(52, 21);
+            this.lbl_parity.TabIndex = 2;
+            this.lbl_parity.Text = "Parity:";
             // 
-            // lbl_parity_value
+            // lbl_baudrate
             // 
-            this.lbl_parity_value.AutoSize = true;
-            this.lbl_parity_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_parity_value.Location = new System.Drawing.Point(109, 51);
-            this.lbl_parity_value.Name = "lbl_parity_value";
-            this.lbl_parity_value.Size = new System.Drawing.Size(52, 21);
-            this.lbl_parity_value.TabIndex = 7;
-            this.lbl_parity_value.Text = "Parity:";
+            this.lbl_baudrate.AutoSize = true;
+            this.lbl_baudrate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_baudrate.Location = new System.Drawing.Point(247, 51);
+            this.lbl_baudrate.Name = "lbl_baudrate";
+            this.lbl_baudrate.Size = new System.Drawing.Size(83, 21);
+            this.lbl_baudrate.TabIndex = 1;
+            this.lbl_baudrate.Text = "Baud Rate:";
             // 
-            // lbl_stopbits_value
+            // lbl_portname
             // 
-            this.lbl_stopbits_value.AutoSize = true;
-            this.lbl_stopbits_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_stopbits_value.Location = new System.Drawing.Point(109, 77);
-            this.lbl_stopbits_value.Name = "lbl_stopbits_value";
-            this.lbl_stopbits_value.Size = new System.Drawing.Size(52, 21);
-            this.lbl_stopbits_value.TabIndex = 8;
-            this.lbl_stopbits_value.Text = "Parity:";
+            this.lbl_portname.AutoSize = true;
+            this.lbl_portname.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_portname.Location = new System.Drawing.Point(6, 25);
+            this.lbl_portname.Name = "lbl_portname";
+            this.lbl_portname.Size = new System.Drawing.Size(87, 21);
+            this.lbl_portname.TabIndex = 0;
+            this.lbl_portname.Text = "Port Name:";
             // 
-            // lbl_baudrate_value
+            // groupBox2
             // 
-            this.lbl_baudrate_value.AutoSize = true;
-            this.lbl_baudrate_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_baudrate_value.Location = new System.Drawing.Point(362, 51);
-            this.lbl_baudrate_value.Name = "lbl_baudrate_value";
-            this.lbl_baudrate_value.Size = new System.Drawing.Size(52, 21);
-            this.lbl_baudrate_value.TabIndex = 9;
-            this.lbl_baudrate_value.Text = "Parity:";
+            this.groupBox2.Controls.Add(this.lbl_savetomysql_value);
+            this.groupBox2.Controls.Add(this.lbl_savetomysql);
+            this.groupBox2.Controls.Add(this.lbl_path_value);
+            this.groupBox2.Controls.Add(this.lbl_path);
+            this.groupBox2.Controls.Add(this.lbl_savetotxt_value);
+            this.groupBox2.Controls.Add(this.lbl_savetotxt);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(0, 114);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(800, 127);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Output Configure";
             // 
-            // lbl_status_value
+            // lbl_savetotxt
             // 
-            this.lbl_status_value.AutoSize = true;
-            this.lbl_status_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_status_value.Location = new System.Drawing.Point(362, 77);
-            this.lbl_status_value.Name = "lbl_status_value";
-            this.lbl_status_value.Size = new System.Drawing.Size(52, 21);
-            this.lbl_status_value.TabIndex = 10;
-            this.lbl_status_value.Text = "Parity:";
+            this.lbl_savetotxt.AutoSize = true;
+            this.lbl_savetotxt.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_savetotxt.Location = new System.Drawing.Point(6, 25);
+            this.lbl_savetotxt.Name = "lbl_savetotxt";
+            this.lbl_savetotxt.Size = new System.Drawing.Size(118, 21);
+            this.lbl_savetotxt.TabIndex = 12;
+            this.lbl_savetotxt.Text = "Save to TXT file:";
             // 
-            // lbl_databits_value
+            // lbl_savetotxt_value
             // 
-            this.lbl_databits_value.AutoSize = true;
-            this.lbl_databits_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_databits_value.Location = new System.Drawing.Point(595, 51);
-            this.lbl_databits_value.Name = "lbl_databits_value";
-            this.lbl_databits_value.Size = new System.Drawing.Size(52, 21);
-            this.lbl_databits_value.TabIndex = 11;
-            this.lbl_databits_value.Text = "Parity:";
+            this.lbl_savetotxt_value.AutoSize = true;
+            this.lbl_savetotxt_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_savetotxt_value.Location = new System.Drawing.Point(130, 25);
+            this.lbl_savetotxt_value.Name = "lbl_savetotxt_value";
+            this.lbl_savetotxt_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_savetotxt_value.TabIndex = 13;
+            this.lbl_savetotxt_value.Text = "Value";
+            // 
+            // lbl_path
+            // 
+            this.lbl_path.AutoSize = true;
+            this.lbl_path.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_path.Location = new System.Drawing.Point(247, 25);
+            this.lbl_path.Name = "lbl_path";
+            this.lbl_path.Size = new System.Drawing.Size(43, 21);
+            this.lbl_path.TabIndex = 14;
+            this.lbl_path.Text = "Path:";
+            // 
+            // lbl_path_value
+            // 
+            this.lbl_path_value.AutoSize = true;
+            this.lbl_path_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_path_value.Location = new System.Drawing.Point(345, 25);
+            this.lbl_path_value.Name = "lbl_path_value";
+            this.lbl_path_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_path_value.TabIndex = 15;
+            this.lbl_path_value.Text = "Value";
+            // 
+            // lbl_savetomysql_value
+            // 
+            this.lbl_savetomysql_value.AutoSize = true;
+            this.lbl_savetomysql_value.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_savetomysql_value.Location = new System.Drawing.Point(130, 55);
+            this.lbl_savetomysql_value.Name = "lbl_savetomysql_value";
+            this.lbl_savetomysql_value.Size = new System.Drawing.Size(48, 21);
+            this.lbl_savetomysql_value.TabIndex = 17;
+            this.lbl_savetomysql_value.Text = "Value";
+            // 
+            // lbl_savetomysql
+            // 
+            this.lbl_savetomysql.AutoSize = true;
+            this.lbl_savetomysql.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_savetomysql.Location = new System.Drawing.Point(6, 55);
+            this.lbl_savetomysql.Name = "lbl_savetomysql";
+            this.lbl_savetomysql.Size = new System.Drawing.Size(119, 21);
+            this.lbl_savetomysql.TabIndex = 16;
+            this.lbl_savetomysql.Text = "Save to MySQL:";
             // 
             // Monitor_Config
             // 
@@ -213,6 +286,8 @@ namespace SCI_9S12.MonitorChildForms
             this.Text = "Monitor_Config";
             this.groupBox_portconfig.ResumeLayout(false);
             this.groupBox_portconfig.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -233,5 +308,11 @@ namespace SCI_9S12.MonitorChildForms
         private System.Windows.Forms.Label lbl_baudrate_value;
         private System.Windows.Forms.Label lbl_status_value;
         private System.Windows.Forms.Label lbl_databits_value;
+        private System.Windows.Forms.Label lbl_savetotxt_value;
+        private System.Windows.Forms.Label lbl_savetotxt;
+        private System.Windows.Forms.Label lbl_path_value;
+        private System.Windows.Forms.Label lbl_path;
+        private System.Windows.Forms.Label lbl_savetomysql_value;
+        private System.Windows.Forms.Label lbl_savetomysql;
     }
 }
