@@ -30,6 +30,8 @@ namespace SCI_9S12
         private void InitializeComponent()
         {
             this.gbox_comportcontrol = new System.Windows.Forms.GroupBox();
+            this.comboBox_readmode = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btn_refreshcom = new System.Windows.Forms.Button();
             this.comboBox_baudrate = new System.Windows.Forms.ComboBox();
             this.comboBox_comport = new System.Windows.Forms.ComboBox();
@@ -78,6 +80,7 @@ namespace SCI_9S12
             this.lbl_receiving = new System.Windows.Forms.Label();
             this.progressBar_saving = new System.Windows.Forms.ProgressBar();
             this.btn_receivepause = new System.Windows.Forms.Button();
+            this.txt_readmode_readto = new System.Windows.Forms.TextBox();
             this.gbox_comportcontrol.SuspendLayout();
             this.menuStrip_menu.SuspendLayout();
             this.gbox_stauts.SuspendLayout();
@@ -87,6 +90,9 @@ namespace SCI_9S12
             // 
             // gbox_comportcontrol
             // 
+            this.gbox_comportcontrol.Controls.Add(this.txt_readmode_readto);
+            this.gbox_comportcontrol.Controls.Add(this.comboBox_readmode);
+            this.gbox_comportcontrol.Controls.Add(this.label7);
             this.gbox_comportcontrol.Controls.Add(this.btn_refreshcom);
             this.gbox_comportcontrol.Controls.Add(this.comboBox_baudrate);
             this.gbox_comportcontrol.Controls.Add(this.comboBox_comport);
@@ -95,10 +101,29 @@ namespace SCI_9S12
             this.gbox_comportcontrol.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbox_comportcontrol.Location = new System.Drawing.Point(11, 28);
             this.gbox_comportcontrol.Name = "gbox_comportcontrol";
-            this.gbox_comportcontrol.Size = new System.Drawing.Size(233, 96);
+            this.gbox_comportcontrol.Size = new System.Drawing.Size(257, 112);
             this.gbox_comportcontrol.TabIndex = 0;
             this.gbox_comportcontrol.TabStop = false;
             this.gbox_comportcontrol.Text = "COM PORT CONTROL";
+            // 
+            // comboBox_readmode
+            // 
+            this.comboBox_readmode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_readmode.FormattingEnabled = true;
+            this.comboBox_readmode.Location = new System.Drawing.Point(91, 78);
+            this.comboBox_readmode.Name = "comboBox_readmode";
+            this.comboBox_readmode.Size = new System.Drawing.Size(78, 25);
+            this.comboBox_readmode.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(5, 82);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(85, 17);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "READ MODE:";
             // 
             // btn_refreshcom
             // 
@@ -109,7 +134,7 @@ namespace SCI_9S12
             this.btn_refreshcom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_refreshcom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_refreshcom.Image = global::SCI_9S12.Properties.Resources.refresh_16px;
-            this.btn_refreshcom.Location = new System.Drawing.Point(207, 25);
+            this.btn_refreshcom.Location = new System.Drawing.Point(215, 25);
             this.btn_refreshcom.Name = "btn_refreshcom";
             this.btn_refreshcom.Size = new System.Drawing.Size(22, 22);
             this.btn_refreshcom.TabIndex = 4;
@@ -119,7 +144,7 @@ namespace SCI_9S12
             // 
             this.comboBox_baudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_baudrate.FormattingEnabled = true;
-            this.comboBox_baudrate.Location = new System.Drawing.Point(83, 56);
+            this.comboBox_baudrate.Location = new System.Drawing.Point(91, 51);
             this.comboBox_baudrate.Name = "comboBox_baudrate";
             this.comboBox_baudrate.Size = new System.Drawing.Size(121, 25);
             this.comboBox_baudrate.TabIndex = 3;
@@ -128,7 +153,7 @@ namespace SCI_9S12
             // 
             this.comboBox_comport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_comport.FormattingEnabled = true;
-            this.comboBox_comport.Location = new System.Drawing.Point(83, 24);
+            this.comboBox_comport.Location = new System.Drawing.Point(91, 24);
             this.comboBox_comport.Name = "comboBox_comport";
             this.comboBox_comport.Size = new System.Drawing.Size(121, 25);
             this.comboBox_comport.TabIndex = 2;
@@ -137,7 +162,7 @@ namespace SCI_9S12
             // 
             this.lbl_cpc_baudrate.AutoSize = true;
             this.lbl_cpc_baudrate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_cpc_baudrate.Location = new System.Drawing.Point(6, 56);
+            this.lbl_cpc_baudrate.Location = new System.Drawing.Point(5, 55);
             this.lbl_cpc_baudrate.Name = "lbl_cpc_baudrate";
             this.lbl_cpc_baudrate.Size = new System.Drawing.Size(77, 17);
             this.lbl_cpc_baudrate.TabIndex = 1;
@@ -163,7 +188,7 @@ namespace SCI_9S12
             this.menu_about});
             this.menuStrip_menu.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_menu.Name = "menuStrip_menu";
-            this.menuStrip_menu.Size = new System.Drawing.Size(443, 25);
+            this.menuStrip_menu.Size = new System.Drawing.Size(466, 25);
             this.menuStrip_menu.TabIndex = 1;
             this.menuStrip_menu.Text = "menuStrip1";
             // 
@@ -222,7 +247,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_databits,
             this.menu_comcontrol_options_stopbits});
             this.menu_comcontrol_options.Name = "menu_comcontrol_options";
-            this.menu_comcontrol_options.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_options.Size = new System.Drawing.Size(154, 22);
             this.menu_comcontrol_options.Text = "More Option";
             // 
             // menu_comcontrol_options_parity
@@ -231,7 +256,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_parity.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comboBox_options_parity});
             this.menu_comcontrol_options_parity.Name = "menu_comcontrol_options_parity";
-            this.menu_comcontrol_options_parity.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_options_parity.Size = new System.Drawing.Size(126, 22);
             this.menu_comcontrol_options_parity.Text = "Parity";
             this.menu_comcontrol_options_parity.ToolTipText = "Default Parity None";
             // 
@@ -254,7 +279,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_databits.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comboBox_options_databits});
             this.menu_comcontrol_options_databits.Name = "menu_comcontrol_options_databits";
-            this.menu_comcontrol_options_databits.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_options_databits.Size = new System.Drawing.Size(126, 22);
             this.menu_comcontrol_options_databits.Text = "DataBits";
             // 
             // comboBox_options_databits
@@ -275,7 +300,7 @@ namespace SCI_9S12
             this.menu_comcontrol_options_stopbits.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comboBox__options_stopbits});
             this.menu_comcontrol_options_stopbits.Name = "menu_comcontrol_options_stopbits";
-            this.menu_comcontrol_options_stopbits.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_options_stopbits.Size = new System.Drawing.Size(126, 22);
             this.menu_comcontrol_options_stopbits.Text = "StopBits";
             // 
             // comboBox__options_stopbits
@@ -292,18 +317,18 @@ namespace SCI_9S12
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(151, 6);
             // 
             // menu_comcontrol_connect
             // 
             this.menu_comcontrol_connect.Name = "menu_comcontrol_connect";
-            this.menu_comcontrol_connect.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_connect.Size = new System.Drawing.Size(154, 22);
             this.menu_comcontrol_connect.Text = "Connect";
             // 
             // menu_comcontrol_disconnect
             // 
             this.menu_comcontrol_disconnect.Name = "menu_comcontrol_disconnect";
-            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(180, 22);
+            this.menu_comcontrol_disconnect.Size = new System.Drawing.Size(154, 22);
             this.menu_comcontrol_disconnect.Text = "Disconnect";
             // 
             // menu_monitor
@@ -329,9 +354,9 @@ namespace SCI_9S12
             this.gbox_stauts.Controls.Add(this.lbl_status_connection);
             this.gbox_stauts.Controls.Add(this.progressBar_connection);
             this.gbox_stauts.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbox_stauts.Location = new System.Drawing.Point(249, 28);
+            this.gbox_stauts.Location = new System.Drawing.Point(274, 31);
             this.gbox_stauts.Name = "gbox_stauts";
-            this.gbox_stauts.Size = new System.Drawing.Size(181, 96);
+            this.gbox_stauts.Size = new System.Drawing.Size(181, 109);
             this.gbox_stauts.TabIndex = 2;
             this.gbox_stauts.TabStop = false;
             this.gbox_stauts.Text = "Functions";
@@ -400,9 +425,9 @@ namespace SCI_9S12
             this.groupBox_datacontrol.Controls.Add(this.label2);
             this.groupBox_datacontrol.Controls.Add(this.label1);
             this.groupBox_datacontrol.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox_datacontrol.Location = new System.Drawing.Point(10, 208);
+            this.groupBox_datacontrol.Location = new System.Drawing.Point(10, 229);
             this.groupBox_datacontrol.Name = "groupBox_datacontrol";
-            this.groupBox_datacontrol.Size = new System.Drawing.Size(419, 171);
+            this.groupBox_datacontrol.Size = new System.Drawing.Size(445, 171);
             this.groupBox_datacontrol.TabIndex = 9;
             this.groupBox_datacontrol.TabStop = false;
             this.groupBox_datacontrol.Text = "Data Control For Database";
@@ -523,7 +548,7 @@ namespace SCI_9S12
             this.groupBox1.Controls.Add(this.lbl_receiving);
             this.groupBox1.Controls.Add(this.progressBar_saving);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(10, 125);
+            this.groupBox1.Location = new System.Drawing.Point(10, 146);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(160, 77);
             this.groupBox1.TabIndex = 10;
@@ -570,19 +595,27 @@ namespace SCI_9S12
             this.btn_receivepause.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_receivepause.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_receivepause.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_receivepause.Location = new System.Drawing.Point(176, 131);
+            this.btn_receivepause.Location = new System.Drawing.Point(176, 152);
             this.btn_receivepause.Name = "btn_receivepause";
-            this.btn_receivepause.Size = new System.Drawing.Size(254, 71);
+            this.btn_receivepause.Size = new System.Drawing.Size(278, 71);
             this.btn_receivepause.TabIndex = 11;
             this.btn_receivepause.Text = "Start/Pause";
             this.btn_receivepause.UseVisualStyleBackColor = false;
+            // 
+            // txt_readmode_readto
+            // 
+            this.txt_readmode_readto.Location = new System.Drawing.Point(175, 78);
+            this.txt_readmode_readto.Name = "txt_readmode_readto";
+            this.txt_readmode_readto.Size = new System.Drawing.Size(37, 25);
+            this.txt_readmode_readto.TabIndex = 7;
+            this.txt_readmode_readto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(443, 405);
+            this.ClientSize = new System.Drawing.Size(466, 412);
             this.Controls.Add(this.btn_receivepause);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox_datacontrol);
@@ -660,6 +693,9 @@ namespace SCI_9S12
         private System.Windows.Forms.ToolStripComboBox comboBox_options_parity;
         private System.Windows.Forms.ToolStripComboBox comboBox__options_stopbits;
         private System.Windows.Forms.ToolStripMenuItem menu_monitor;
+        private System.Windows.Forms.ComboBox comboBox_readmode;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txt_readmode_readto;
     }
 }
 
