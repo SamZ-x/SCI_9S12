@@ -30,6 +30,7 @@ namespace SCI_9S12
         private void InitializeComponent()
         {
             this.gbox_comportcontrol = new System.Windows.Forms.GroupBox();
+            this.txt_endmode_readto = new System.Windows.Forms.TextBox();
             this.comboBox_endmode = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btn_refreshcom = new System.Windows.Forms.Button();
@@ -80,7 +81,6 @@ namespace SCI_9S12
             this.lbl_receiving = new System.Windows.Forms.Label();
             this.progressBar_saving = new System.Windows.Forms.ProgressBar();
             this.btn_receivepause = new System.Windows.Forms.Button();
-            this.txt_endmode_readto = new System.Windows.Forms.TextBox();
             this.gbox_comportcontrol.SuspendLayout();
             this.menuStrip_menu.SuspendLayout();
             this.gbox_stauts.SuspendLayout();
@@ -105,6 +105,14 @@ namespace SCI_9S12
             this.gbox_comportcontrol.TabIndex = 0;
             this.gbox_comportcontrol.TabStop = false;
             this.gbox_comportcontrol.Text = "COM PORT CONTROL";
+            // 
+            // txt_endmode_readto
+            // 
+            this.txt_endmode_readto.Location = new System.Drawing.Point(200, 78);
+            this.txt_endmode_readto.Name = "txt_endmode_readto";
+            this.txt_endmode_readto.Size = new System.Drawing.Size(20, 25);
+            this.txt_endmode_readto.TabIndex = 7;
+            this.txt_endmode_readto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // comboBox_endmode
             // 
@@ -136,8 +144,9 @@ namespace SCI_9S12
             this.btn_refreshcom.Image = global::SCI_9S12.Properties.Resources.refresh_16px;
             this.btn_refreshcom.Location = new System.Drawing.Point(224, 25);
             this.btn_refreshcom.Name = "btn_refreshcom";
-            this.btn_refreshcom.Size = new System.Drawing.Size(22, 22);
+            this.btn_refreshcom.Size = new System.Drawing.Size(27, 24);
             this.btn_refreshcom.TabIndex = 4;
+            this.btn_refreshcom.TabStop = false;
             this.btn_refreshcom.UseVisualStyleBackColor = false;
             // 
             // comboBox_baudrate
@@ -602,14 +611,6 @@ namespace SCI_9S12
             this.btn_receivepause.Text = "Start/Pause";
             this.btn_receivepause.UseVisualStyleBackColor = false;
             // 
-            // txt_endmode_readto
-            // 
-            this.txt_endmode_readto.Location = new System.Drawing.Point(200, 78);
-            this.txt_endmode_readto.Name = "txt_endmode_readto";
-            this.txt_endmode_readto.Size = new System.Drawing.Size(20, 25);
-            this.txt_endmode_readto.TabIndex = 7;
-            this.txt_endmode_readto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -686,6 +687,7 @@ namespace SCI_9S12
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options_databits;
+        //private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripComboBox comboBox_options_databits;
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options_stopbits;
         private System.Windows.Forms.ToolStripMenuItem menu_comcontrol_options_parity;

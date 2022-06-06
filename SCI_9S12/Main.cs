@@ -648,6 +648,7 @@ namespace SCI_9S12
             menu_comcontrol_connect.Enabled = status;
             menu_comcontrol_options.Enabled = status;
             progressBar_connection.Value = status ? 0 : 100;
+            btn_refreshcom.Enabled = status;
         }
 
         #endregion
