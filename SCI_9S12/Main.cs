@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using static System.Diagnostics.Trace;
 
 //add additional references
+using System.Threading;
 using System.IO;
 using System.IO.Ports;
 using MySql.Data.MySqlClient;
@@ -56,6 +57,7 @@ namespace SCI_9S12
 
         //monitor
         public Monitor Monitor_Page = null;
+
         #endregion
 
         /// <summary>
@@ -88,11 +90,11 @@ namespace SCI_9S12
             menu_file_close.Click += (sender, e) => { Application.Exit(); };       //close APP
             menu_about.Click += (sender, e) => { new Help_Page().ShowDialog(); };  //show the help doc
             menuStrip_menu.MouseDown += MenuStrip_menu_MouseDown;
-
-
+                
             //data control
             comboBox_dataseparator.SelectedIndexChanged += ComboBox_dataseparator_SelectedIndexChanged;
             #endregion
+
 
         }
 
@@ -135,11 +137,7 @@ namespace SCI_9S12
         /// </summary>
         private void Btn_refreshcom_Click(object sender, EventArgs e)
         {
-            //get the avariable serial port (refresh)
-            string[] PortList = SerialPort.GetPortNames();
-            comboBox_comport.Items.Clear();
-            comboBox_comport.Items.AddRange(PortList);
-            comboBox_comport.SelectedIndex = 0;
+            RefreshPortList();
         }
 
         /// <summary>
@@ -402,6 +400,12 @@ namespace SCI_9S12
 
             //serial port event
             _newSerialPort.DataReceived += _newSerialPort_DataReceived;
+
+            //start a background thread to monitor the selected port
+            //if port disconnected somehow, notify the main app
+            Thread PortMonitorThread = new Thread(PortMonitor);
+            PortMonitorThread.IsBackground = true;
+            PortMonitorThread.Start(Port);
         }
 
         /// <summary>
@@ -413,9 +417,6 @@ namespace SCI_9S12
             if (_newSerialPort == null)
                 return;
 
-            //if (Monitor_Page != null)
-            //    Monitor_Page.Close();
-
             if (_newSerialPort.IsOpen)
             {
                 //close the current port 
@@ -425,9 +426,6 @@ namespace SCI_9S12
 
                 //trigger updata event
                 PortStatusUpdate();
-
-                //Release the port related setting
-                PortRelatedContols(true);
 
                 //reset the save method to default
                 menu_file_savetotxt.Checked = false;
@@ -442,6 +440,9 @@ namespace SCI_9S12
                 //saving data control
                 Reset_btn_receivepause();
             }
+
+            //Release the port related setting
+            PortRelatedContols(true);
         }
 
         /// <summary>
@@ -554,6 +555,18 @@ namespace SCI_9S12
         #region Helper methods
 
         /// <summary>
+        /// Refresh the avaliable ports list 
+        /// </summary>
+        private void RefreshPortList()
+        {
+            //get the avariable serial port (refresh)
+            string[] PortList = SerialPort.GetPortNames();
+            comboBox_comport.Items.Clear();
+            comboBox_comport.Items.AddRange(PortList);
+            comboBox_comport.SelectedIndex = 0;
+        }
+
+        /// <summary>
         /// Control of saving received data
         /// </summary>
         private void SaveReceivedData(string dataForDatabase)
@@ -649,6 +662,50 @@ namespace SCI_9S12
             menu_comcontrol_options.Enabled = status;
             progressBar_connection.Value = status ? 0 : 100;
             btn_refreshcom.Enabled = status;
+        }
+
+        /// <summary>
+        /// Background thread function to monitor the serial port
+        /// </summary>
+        /// <param name="portname">selected port name</param>
+        private void PortMonitor(object portname)
+        {
+            if (!(portname is string port))
+                return;
+            //non stop looping
+            while (true)
+            {
+                try
+                {
+                    //check the selected port
+                    string[] PortList = SerialPort.GetPortNames();
+                    if (Array.IndexOf(PortList, port) == -1)
+                    {
+                        Invoke(new Action(PortNotification));
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteLine(ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// If port disconnect by remove componenet, Update the main status.
+        /// </summary>
+        private void PortNotification()
+        {
+            MessageBox.Show("PORT DISCONNECTED!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //Release the port related setting
+            PortRelatedContols(true);
+            PortStatusUpdate();
+            RefreshPortList();
+            Reset_btn_receivepause();
+
+            menu_file_savetomysql.Checked = false;
+            menu_file_savetotxt.Checked = false;
         }
 
         #endregion
