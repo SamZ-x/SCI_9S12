@@ -9,6 +9,7 @@
  *      Jun 04, 2022 fix bugs, add monitor function
  *      Jun 05, 2022 construct monitor function(port config, data monitor)
  *      Jun 06, 2022 fix monitor functions
+ *      Jun 07, 2022 Add a thread to monitor the physical port connection of currently connected port.
  */
 using System;
 using System.Collections.Generic;
